@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>1.React  Vue 项目时为什么要在列表组件中写 key，其作用是什么？</title>
+</head>
+<body>
+
+    <pre>
+
+        key 用来判断两个节点是否相同，使用key时，相同的节点会复用，不相同的则会销毁并新建，虽然会有很大的性能开销，但是能够保证 组件状态的正确性（比如触发过渡）
+
+
+        不带key值时，vue会进行就地更新的策略，不移动dom元素，只更新dom的文本内容等；只适用一些简单列表渲染。
+
+
+    </pre>
+
+
+    
+
+</body>
+</html>

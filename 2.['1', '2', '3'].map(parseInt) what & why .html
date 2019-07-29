@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>2.['1', '2', '3'].map(parseInt) what & why </title>
+</head>
+<body>
+
+    <pre>
+
+        ['1', '2', '3'].map(parseInt)
+
+        ['1', '2', '3'].map(parseInt(currentValue, index));
+
+        ->  parseInt('1', 0)    1
+        ->  parseInt('2', 1)    NaN
+        ->  parseInt('3', 2)    NaN
+
+
+
+        let unary = fn => val => fn(val)
+        let parse = unary(parseInt)
+        console.log(['1.1', '2', '0.3'].map(parse))
+
+        -> unary = function(fn) {
+            return function(val) {
+                return fn(val)
+            }
+        }
+        -> parse = unary(parseInt)
+        -> parse('1.1')     1
+        -> parse('2')       2
+        -> parse('0.3')     0
+
+    </pre>
+
+
+    
+
+</body>
+</html>
+<script>
+
+
+
+</script>

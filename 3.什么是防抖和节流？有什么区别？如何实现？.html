@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>什么是防抖和节流？有什么区别？如何实现？ #</title>
+</head>
+<body>
+    
+    <pre>
+
+        <p>
+            防抖：函数在n秒内只执行一次，如果在n秒内又执行，则重新计算时间
+            （将多次执行，变为最后/最前一次执行）
+            <button id="btn1">防抖</button>    <button id="btn2">防抖（立即执行）</button>
+        </p>
+
+
+        <p>
+            节流：函数在n秒内执行一次，降低函数的执行频率
+            （将多次执行，变为每隔一段时间执行）
+            <button id="btn3">节流（时间戳）</button>    <button id="btn4">节流（定时器）</button>    <button id="btn5">节流+定时（定时器）</button>
+        </p>
+
+    </pre>
+
+</body>
+</html>
+<script src="https://cdn.bootcss.com/lodash.js/4.17.14/lodash.js"></script>
+<script>
+
+    function debounce(fn, delay = 500) {
+        let timer = null;
+        return function() {
+            clearTimeout(timer);
+            timer = setTimeout(function() {
+                fn.apply(this, arguments);
+            }, delay)
+        }
+    }
+
+    function debounce2(fn, delay = 500, immediate = true) { // fn 立即执行
+        let timer, context, args;
+        let later = () => setTimeout(() => {
+            timer = null;   // 置空 timer
+            if (!immediate) {
+                fn.apply(context, args);
+                context = args = null;
+            }
+        }, delay);
+
+        return function(...arg) {
+            if (!timer) {
+                timer = later();
+                if (immediate) {
+                    fn.apply(this, arg);    // 立即执行
+                } else {
+                    context = this;
+                    args = arg
+                }
+            } else {
+                clearTimeout(timer);    // 在n秒内又执行时，清空定时器
+                timer = later();
+            }
+        }
+
+    }
+
+
+    document.getElementById("btn1").onclick = debounce(function() {
+        console.log('btn1 被点击了')
+    });
+
+    document.getElementById("btn2").onclick = debounce2(function() {
+        console.log('btn2 被点击了')
+    });
+
+
+    // 时间戳 实现节流
+    function throttle1(fn, delay = 1000) {
+        let timer, old, context;
+        return function(...arg) {
+            let now = +new Date();
+            context = this;
+            if (!old) {
+                fn.apply(this, arg);
+                old = now
+            } else if (now - old > delay) {
+                    fn.apply(this, arg);
+                    old = now;
+                }
+        }
+    }
+
+    // 定时器 实现节流
+    function throttle2(fn, delay = 500) {
+        let timer;
+        return function(...arg) {
+            var context = this;
+            if (!timer) {
+                timer = setTimeout(() => {
+                    fn.apply(context, arg);
+                    timer = null;
+                }, delay)
+            }
+        }
+    }
+    
+    // 定时器+时间戳
+    function throttle3(fn, delay = 1000) {
+        let timer,
+            prev = 0,
+            context,
+            args;
+        
+        return function(...arg) {
+            context = this;
+            args = arg;
+            let now = +new Date();
+            let remain = delay - (now - prev);  // 每次执行的剩余时间
+            if (remain <= 0) {
+                clearTimeout(timer);
+                timer = null;
+                prev = now;
+                fn.apply(context, arg);
+            } else {
+                if (!timer) {
+                    timer = setTimeout(() => {
+                        prev = +new Date();
+                        timer = null;                        
+                        fn.apply(context, args);
+                        context = args = null;
+                    }, remain);
+                }
+            }
+        }
+    }
+
+
+
+    document.getElementById("btn3").onclick = throttle1(function() {
+        console.log('btn3 被点击了')
+    });
+    document.getElementById("btn4").onclick = throttle2(function() {
+        console.log('btn4 被点击了')
+    });
+    document.getElementById("btn5").onclick = throttle3(function() {
+        console.log('btn5 被点击了')
+    });
+</script>

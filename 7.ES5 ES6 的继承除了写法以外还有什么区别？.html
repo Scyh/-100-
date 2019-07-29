@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ES5/ES6 的继承除了写法以外还有什么区别？</title>
+</head>
+<body>
+    <pre>
+
+        ES5：先生成子类，再将父类的属性和方法添加到子类上，子类的__proto__ 指向 Function.prototype
+
+        ES6：在子类的构造函数中先调用super()，调用的父类的构造函数，但是this指向子类，再调用子类的构造函数
+             子类可以直接通过__proto__找到父类
+
+    </pre>
+</body>
+</html>
+<script>
+
+    function Super() {
+        this.name = 'a'
+    }
+
+    Super.prototype.getName = function() {
+        console.log('name: ', this.name);
+        return this.name
+    }
+
+    function Sub() {
+        Super.call(this);
+        this.age = 12;
+    }
+    Sub.prototype = new Super();
+    Sub.prototype.getAge = function() {
+        console.log('age: ', this.age);
+        return this.age
+    }
+    
+    var sub = new Sub();
+    sub.getName();
+    sub.getAge();
+    console.log('ES5: Sub.__proto__ === Super', Sub.__proto__ === Super) // false
+    console.log('Sub.__proto__ === Function.prototype: ', Sub.__proto__ === Function.prototype)
+
+
+    class Super2 {
+        constructor() {
+            this.name = 'b';
+        }
+
+        getName() {
+            console.log('name: ', this.name);
+            return this.name
+        }
+    }
+
+    class Sub2 extends Super2 {
+        constructor() {
+            super();
+            this.age = 13;
+        }
+
+        getAge() {
+            console.log('age: ', this.age);
+            return this.age
+        }
+    }
+
+    let sub2 = new Sub2();
+    sub2.getName();
+    sub2.getAge();
+    console.log('ES6: Sub2.__proto__ === Super2', Sub2.__proto__ === Super2)
+</script>

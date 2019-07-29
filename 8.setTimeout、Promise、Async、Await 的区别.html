@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>setTimeout、Promise、Async/Await 的区别</title>
+</head>
+<body>
+    <pre>
+
+        JavaScript执行机制：事件循环，单线程。所有的任务都放在执行栈中，等待主线程执行。
+
+            1. 同步任务会在执行栈中，按照顺序执行；
+
+            2. 异步任务则会在有结果后，将回调函数添加到任务队列中，等到执行栈执行结束后，读取任务队列中的任务，等待主线程执行；
+
+            3. 任务队列分为两种，宏(macro)任务的任务队列，微(micro)任务的任务队列，执行栈清空后，会先读取微任务的任务队列，执行完微任务的任务队列后，再去读宏任务的任务队列；
+            
+            4. 每次执行栈清空时，主线程都会读取任务队列，即循环 读取->执行 的操作。
+
+        解释：
+            执行栈：先进后出
+            任务队列：先进先出
+
+        setTimeout/setInterval： 回调函数会添加到宏任务的任务队列中，并根据传入延迟时间执行，不能保证严格按照时间执行。
+
+        Promise：定义时的代码会同步执行，每当resolve时，then回调中的函数会被添加到微任务的任务队列中。
+
+        Async/Await：主线程在执行await时，会跳出函数。
+            async：返回一个promise对象，当返回一个值时，会调用resolve传递该值；抛出异常时，reject传递错误
+            await：返回Promise对象的处理结果，如果不是promise对象，则返回值本身。
+
+    </pre>
+</body>
+</html>
+<script>
+   
+
+    // setTimeout(function() {
+    //     console.log('2s后执行');
+    // }, 2000);
+    
+    // setTimeout(function() {
+    //     console.log('1s后执行');
+    // }, 1000);
+
+    // setTimeout(function() {
+    //     console.log('0s后执行');
+    // })
+
+/*
+    // 微观任务队列
+    []
+
+    1               // 同步代码   [ A ]
+    'Promise: 1'    // 同步代码   [ A ]
+    'Promise: 1-1'  // 同步代码，将then回调函数F放入微观任务队列中   [ A, F]
+    'Promise: 2'    // 同步代码，将then回调函数G放入微观任务队列中   [ A, F, G]
+    2               // 执行A      [F, G]
+    3               // 执行async2，将then回调函数B放入微观任务队列中 [F, G, B]
+    4               // 同步执行    [F, G, B]
+    'Promise: 1-2'  // 执行F      [G, B]
+    'Promise: 3'    // 执行G，将then回调函数H放入微观任务队列中      [B, H]
+    77              // 执行B，将then回调函数C放入微观任务队列中      [H, C]
+    'Promise: 4'    // 执行H，将then回调函数C放入微观任务队列中      [C, I]
+    5               // 执行C，将then回调函数I放入微观任务队列中      [I]
+    'async1 end'    
+    6                   
+    'Promise: 5'    // 执行I      [J]
+    'Promise: 6'    // 执行J
+
+*/
+    async function async1 () {
+        return new Promise(resolve => {
+            console.log(1)
+            Promise.resolve().then(function A() {
+                console.log(2)
+                async2().then(function B() {
+                    console.log(77)
+                    resolve()
+                })
+                console.log(4)
+            })
+        }).then( function C() {
+            console.log(5)
+            console.log('async1 end')
+            console.log(6)
+        })
+    }
+    async function async2 () {
+        console.log(3)
+    }
+    
+    async1();
+
+
+    new Promise( function D(resolve,reject) {
+        console.log('Promise: 1');
+
+        new Promise( function E(resolve, reject) {
+            console.log('Promise: 1-1');
+            resolve();
+        }).then(function F() {
+            console.log('Promise: 1-2');
+        });
+        // setTimeout(() => {
+            console.log('Promise: 2');
+        // }, 1000);
+        resolve();
+    }).then(function G() {
+        console.log('Promise: 3');
+    }).then(function H() {
+        console.log('Promise: 4');
+    }).then(function I() {
+        console.log('Promise: 5');
+    }).then(function J() {
+        setTimeout(() => {
+            console.log('Promise: 6');
+        }, 1000);
+    })
+
+</script>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>请分别用深度优先思想和广度优先思想实现一个拷贝函数？</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+
+    let DFSCopy = function(obj, newObj = {}) {
+        if (!toString.call(obj) === '[object Object]') return obj;
+        for (let i in obj) {
+            if(toString.call(obj[i]) === '[object Object]') {
+                newObj[i] = {};
+                DFSCopy(obj[i], newObj[i])
+            } else if (toString.call(obj[i]) === '[object Array]') {
+                newObj[i] = [];
+                for (let j = 0; j < obj[i].length; j++) {
+                    newObj[i][j] = DFSCopy(obj[i][j])
+                }
+            } else {
+                newObj[i] = obj[i];
+            }
+        }
+        return newObj;
+    }
+
+
+    let BFSCopy = function(obj) {
+        let newObj = {},
+            queue = [[obj, newObj]];
+        while(queue.length) {
+            let [origin, target] = queue.shift();
+            for (let i in origin) {
+                if(toString.call(origin[i]) === '[object Object]') {
+                    target[i] = {};
+                    queue.push([origin[i], target[i]])
+                } else if (toString.call(origin[i]) === '[object Array]') {
+                    target[i] = [];
+                    queue.push([origin[i], target[i]])
+                } else {
+                    target[i] = origin[i];
+                }
+            }
+        }
+        return newObj
+    }
+
+
+
+    let obj = {
+        a: 1,
+        b: 2,
+        c: {
+            d: 4,
+            f: 5
+        },
+        g: ['g', 'gg'],
+        h: [{h1: 'h1'}, {h2: 'h2'}],
+        i: {
+            'ii': ['1','2','3']
+        }
+    }
+
+    var newObj = DFSCopy(obj);
+    newObj['a'] = 11;
+    newObj['c']['d'] = 44;
+    newObj['h'][0]['h1'] = 'h11'
+    console.log('DFSCopy: ', newObj)
+    console.log('origin : ', obj);
+
+    var bfsObj = BFSCopy(obj);
+    bfsObj['a'] = 11;
+    bfsObj['c']['d'] = 44;
+    bfsObj['h'][0]['h1'] = 'h11'
+    console.log('BFSCopy: ', bfsObj);
+    console.log('origin : ', obj);
+</script>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>介绍下 Set、Map、WeakSet 和 WeakMap 的区别？</title>
+</head>
+<body>
+    
+    <pre>
+
+        Set：
+            1. 成员不重复；
+            2. 只有键值，没有键名；
+            3. 支持遍历；
+            4. 方法：add、delete、has
+        
+        WeakSet：
+            1. 成员只接受对象；
+            2. 成员都是弱引用（不计入垃圾回收机制）
+            3. 不能遍历；
+            4. 方法：add、delete、has
+
+        Map：
+            1. 值-值对应（可以使用对象等作为键名）；
+            2. 支持遍历；
+            3. 方法：set、get、clear、has、clear、keys、values、entriers、forEach；
+            4. 属性：size
+
+        WeakMap：
+            1. 只接受对象作为键名；
+            2. 键名所指的对象，都是弱引用（不计入垃圾回收机制）；
+            3. 不支持遍历；
+            4. 方法：get、set、has、delete
+
+    </pre>
+
+</body>
+</html>
