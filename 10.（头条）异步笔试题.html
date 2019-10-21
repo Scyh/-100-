@@ -188,7 +188,7 @@ new Promise(function(res, rej) {
     res("aaa");
 }).then(function(result) {
         console.log(result);
-        return Promise.resolve("bbb");  // 延迟了两个时序，是因为简历了两个PromiseResolveThenableJob
+        return Promise.resolve("bbb");  // 延迟了两个时序，是因为建立了两个PromiseResolveThenableJob
     })
     .then(function(result) {
         console.log(result);
@@ -217,7 +217,7 @@ new Promise(r => {
  * 3
  * bbb
  * 4
- * 
+ */
 
 
 </script>

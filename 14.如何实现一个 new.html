@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>如何实现一个 new</title>
+</head>
+<body>
+    <pre>
+        new 做了什么事情：
+            1. 生成一个新对象；
+            2. 新对象的__proto__指向原型对象
+            3. 执行构造器，传递参数，this指向新对象
+            4. 返回新对象或构造器的返回值
+    </pre>
+</body>
+</html>
+<script>
+
+    function _new (fn, ...args) {
+        let obj = Object.create(fn.prototype);
+        let result = fn.apply(obj, args);
+        return result instanceof Object ? result : obj;
+    }
+
+    function __new (fn, ...args) {
+        let obj = {};
+        obj.__proto__ = fn.prototype;
+        let result = fn.apply(obj, args);
+        return result instanceof Object ? result : obj;
+    }
+
+
+    function Person(name) {
+        this.name = name;
+    }
+
+    var p1 = new Person('p1');
+    console.log('p1: ', p1.__proto__);
+
+
+    var p2 = _new(Person, 'p2');
+    console.log('p2: ', p2.__proto__, p2 instanceof Person);
+
+    var p3 = _new(Person, 'p3');
+    console.log('p3: ', p3.__proto__, p3 instanceof Person);
+
+
+
+</script>
