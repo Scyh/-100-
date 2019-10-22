@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>简单讲解一下http2的多路复用</title>
+</head>
+<body>
+    <pre>
+        多路复用：
+
+            在http2中，同一域名下的请求，都通过一个TCP连接请求完成，即一个TCP连接中，可以存在多个流
+
+            关键词：流、帧
+
+                流：一次完整的请求响应过程，有多个帧组成；
+                帧：数据最小单元，标识出属于哪个流；
+
+    </pre>
+</body>
+</html>
