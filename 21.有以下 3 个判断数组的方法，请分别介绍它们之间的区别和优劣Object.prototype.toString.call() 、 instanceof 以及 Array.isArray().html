@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>有以下 3 个判断数组的方法，请分别介绍它们之间的区别和优劣Object.prototype.toString.call() 、 instanceof 以及 Array.isArray()</title>
+</head>
+<body>
+    
+    <pre>
+
+        Object.prototype.toString.call():
+            （是唯一获取该属性的方法，该方法返回[object type]，虽然内置对象都继承了Object，但也都改写了toString方法，所以需要改变this指向）
+
+            通过call改变toString的函数调用，输出类型
+            ES5是通过读取变量的[[class]]属性；
+            ES6通过Symbol.toStringTag，可以修改
+
+            var obj = {};
+
+            Object.defineProperty(obj, Symbol.toStringTag, {
+                get: function() {
+                    return 'Custom'
+                }
+            });
+
+            Object.prototype.toString.call(obj);    // [object Custom]
+            
+
+
+        instanceof:
+            
+            通过判断原型链上是否能找到构造函数的原型对象，判断是否属于判断类型
+            只能判断对象类型
+            [] instanceof Array     // true
+            [] instanceof Object    // true
+
+
+            var str1 = '1',
+                str2 = String('1'),
+                str3 = new String('1'); // new 出来的都是对象
+
+            typeof str1     // string
+            typeof str2     // string
+            typeof str3     // object
+
+            str1 === str2   // true
+            str1 === str3   // false
+
+        Array.isArray():
+            ES6新增，能够判断 iframe中的变量
+
+
+        typeof:
+            js在存储变量时，会在变量的机器码的低位1-3位存储对应的类型信息
+            通过，判断变量对应的二进制信息，低位000表示对象，因此 typeof null 输出 object
+            {
+                000: 对象,
+                1: 整数,
+                010: 浮点数,
+                100: 字符串,
+                110: 布尔值,
+                -2^30: undefined
+                000: null
+            }
+
+    </pre>
+
+</body>
+</html>
