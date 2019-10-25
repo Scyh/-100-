@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>介绍下重绘和回流（Repaint & Reflow），以及如何进行优化 </title>
+</head>
+<body>
+    
+    <pre>
+
+        浏览器渲染机制：
+            解析html/css，生成html/css tree，并合并成render tree，再进行（回流）layout，重绘，渲染到浏览器上。
+
+        回流: 计算节点的几何属性过程
+            触发：dom节点的几何属性（位置，大小），发生改变
+
+        
+
+        重绘: 将节点转化为屏幕上的实际像素的过程
+            触发：当节点的样式发生改变，而不影响布局时触发，例如color、outline、visible、background-color等
+
+        *** 回流一定触发重绘，重绘不一定触发回流
+
+
+        优化：
+
+            减少操作dom
+            合并样式设置
+            减少获取节点的布局信息（位置、大小）
+            具有复杂动画的节点，脱离文档流
+    </pre>
+
+</body>
+</html>
