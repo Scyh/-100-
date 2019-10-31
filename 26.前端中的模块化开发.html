@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>前端中的模块化开发</title>
+</head>
+<body>
+    <pre>
+
+    模块化开发：
+
+        AMD：
+            依赖前置，必须提前声明
+            异步加载
+
+            define(['xxx.js'], function(modulexxx) {
+                var a = function() {}
+                return a
+            })
+        
+        CMD：
+            依赖用到时，再声明，
+            依赖在模板执行时才会加载执行
+            define(function(require, exports, module) {
+                var moduleA = require('./moduleA'); // 同步
+
+                require.async('./moduleB', function(moduleB) {
+
+                });
+
+                var moduleCmd = function() {}
+
+                对外暴露
+                exports.moduleCmd = moduleCmd
+            },)
+            
+
+        commonjs：
+            nodejs的模块化
+                服务端：
+                    运行时，同步加载
+
+                客户端：
+                    需要提前编译处理。
+
+                var a = require('./a');
+
+                var b = 'SOME VARIABLE'
+                modules.export = b
+
+        ES6：
+
+
+
+    </pre>
+</body>
+</html>

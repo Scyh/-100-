@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>24.聊聊 Redux 和 Vuex 的设计思想</title>
+</head>
+<body>
+    <pre>
+        Vuex:
+
+            将组件中的共享状态抽取出来，并遵循特定的约定，统一管理。
+
+            vuex中，将状态都存储在store中，并且修改状态的唯一途径是mutation。
+            
+            mutation必须是同步的，否则将会使得状态难以追踪。
+
+            如果需要异步操作，可以通过action，
+            action与mutation不同的是，action不直接修改store，只提交mutation。
+
+
+            整个流程：
+
+
+                view -> actions -> mutations -> store -> render view
+
+    </pre>
+
+</body>
+</html>
