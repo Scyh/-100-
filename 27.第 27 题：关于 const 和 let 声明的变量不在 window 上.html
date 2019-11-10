@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>关于 const 和 let 声明的变量不在 window 上</title>
+</head>
+<body>
+    <pre>
+
+        const 和 let 声明的变量，在当前作用域中，而不属于window的属性
+
+        var a = 1;  // GLOBAL
+        let b = 2;  // script
+        {
+            var c = 3;  // GLOBAL
+            let d = 4   // Block
+            const e = 5 // Block
+            {
+                var f = 6;  // GLOBAL
+                let g = 7   // BLOCK
+            }
+        }
+
+    </pre>
+</body>
+</html>
+<script>
+
+    var a = 1;  // GLOBAL
+    let b = 2;  // script
+    {
+        var c = 3;  // GLOBAL
+        let d = 4   // Block
+        const e = 5 // Block
+        {
+            var f = 6;  // GLOBAL
+            let g = 7   // BLOCK
+            debugger
+        }
+    }
+
+</script>
