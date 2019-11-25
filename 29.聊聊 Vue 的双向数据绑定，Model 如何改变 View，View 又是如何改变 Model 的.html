@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>聊聊 Vue 的双向数据绑定，Model 如何改变 View，View 又是如何改变 Model 的</title>
+</head>
+<body>
+    
+    <pre>
+        
+        Vue 进行数据绑定时，通过Object.defineProperty()，对数据进行拦截，在getter中收集更新依赖，在setter中派发通知
+
+        M -> V:
+
+            模型改变时，触发setter，通知view，调用update方法，进行diff算法，减少不必要的dom更新
+
+        V -> M:
+
+            Vue的view改变， 一种是输入框的v-model，一种是通过v-on，对数据进行修改，更新，同样也会触发setter，进行更新
+
+    </pre>
+
+</body>
+</html>

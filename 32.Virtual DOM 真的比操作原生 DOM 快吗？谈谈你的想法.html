@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Virtual DOM 真的比操作原生 DOM 快吗？谈谈你的想法</title>
+</head>
+<body>
+    <pre>
+
+        如果真要对比的话，virtual dom 肯定不会比手动优化的原生的dom操作更快。
+        
+        Virtral Dom: 通过对象，去模拟真实dom
+        当视图需要更新时，先根据虚拟dom，通过diff算法，尽可能的减少dom操作
+
+        采用virtual dom 时，需要生成对应的virtual dom，再和旧的virtual dom进行对比，最后再修改dom
+        这些都是一些性能的开销，到最后还是使用原生的dom操作。
+
+        但是这些，都被封装在了框架的底层，在实际开发中，只需要关心数据的改变等，不需要人工的去维护。
+
+    </pre>
+</body>
+</html>
