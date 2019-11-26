@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>下面的代码打印什么内容，为什么？</title>
+</head>
+<body>
+    <pre>
+        var b = 10;
+        (function b(){
+            b = 20;
+            console.log(b); 
+        })();
+
+        具名函数表达式，函数名(.name属性)只读。
+        在创建的时候，就已经是不可修改了
+    </pre>
+</body>
+</html>
+<script>
+
+    var b = 10;
+    (function b(){
+        b = 20;
+        debugger
+        console.log(b); 
+    })();
+
+    console.log('------------');
+    
+    var b = 10;
+    (function b(){
+        var b = 20;
+        console.log(b); 
+    })();
+
+    console.log('------------');
+
+    var b = 10,
+        c = 1;
+    (function b(){
+        c = 2
+        console.log(b); 
+    })();
+
+    console.log(c);
+
+    console.log('-------------');
+
+
+    var d = function e() {
+        e = 1;
+        console.log(e);
+    };
+    d();
+
+</script>

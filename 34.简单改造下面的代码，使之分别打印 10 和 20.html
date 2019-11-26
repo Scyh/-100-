@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>简单改造下面的代码，使之分别打印 10 和 20</title>
+</head>
+<body>
+    <pre>
+        var b = 10;
+        (function b(){
+            b = 20;
+            console.log(b); 
+        })(); 
+    </pre>
+</body>
+</html>
+<script>
+    
+    var b = 10;
+    (function c(){
+        console.log(b); 
+    })(); 
+
+    var b = 10;
+    (function b(){
+        var b = 20;
+        console.log(b); 
+    })(); 
+
+    var b = 10;
+    (function c(d){
+        var b = 20
+        console.log(b, d); 
+    })(b);
+
+</script>
