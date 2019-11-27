@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>浏览器缓存读取规则</title>
+</head>
+<body>
+    <pre>
+
+        浏览器每次发起请求，都会先在浏览器缓存中查找该请求结果以及缓存标志；
+            
+        每次拿到请求结果后，都会将请求的结果与缓存标识，存入到浏览器缓存中。
+
+        浏览器缓存：
+
+            强缓存：http1.1的产物
+                不会向服务端发送请求，直接送浏览器读取资源
+                cache-control：{
+                    public: 响应可以被客户端和代理服务器缓存
+                    private: 只可以被客户端缓存
+                    max-age: 缓存时间，以秒为单位
+                    no-cache: 不使用cache-control 使用缓存的前置验证，
+                              不意味着不缓存数据，只是再使用缓存数据时，需要先确认数据是否与服务器一致
+                    ...
+                                
+                }
+
+                Expires: 过期时间，http1.0的产物
+
+            协商缓存：
+                Last-Modified：文件上次修改时间，http1.0的产物
+
+                ETag和If-None-Match：由服务端返回 当前资源的唯一标识
+                    当浏览器发起请求时，将ETag放在头部的If-None-Match中，
+                    服务端判断是否与当前资源的ETag一样，一样则返回304，使用缓存；不一样则返回200，和新的资源以及ETag
+
+
+        优先级:
+                强制缓存                >             协商缓存
+
+                cache-control > Expires             ETage > Last-Modified
+
+                            
+        缓存位置：
+                Memory Cache：浏览器缓存，大小、时效性限时，会随着网页的关闭而释放
+                    （preloader）
+
+                Disk Cache：硬盘缓存，缺点是读取速度比 Memory Cache 慢
+
+        浏览器读取缓存：
+
+                浏览器 -> 发起请求 -> 有缓存？ -> 否 -> 服务端返回资源及缓存标识 -> 浏览器缓存结果以及标识
+
+                                             -> 是 -> 缓存是否过期？
+
+                                                   -> 否 -> 浏览器读取缓存 (强缓存不会发送请求，请求返回 200 状态码)
+
+                                                   -> 是 -> 携带缓存标识(If-Modified-Since和If-None-Match)请求服务器 -> 资源是否有更新？
+
+                                                                                 -> 否 -> 返回 304 及缓存标识 -> 浏览器读取缓存并存储缓存标识
+
+                                                                                 -> 是 -> 返回 200 及新的资源 -> 浏览器缓存资源及标识
+                
+
+
+    </pre>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>使用迭代的方式实现 flatten 函数</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+
+    let arr = [1, 2, 3, [4, 5, [6, 7, 8]]];
+
+    function flatten(arr) {
+        return arr.reduce((sum, item) => sum.concat(Array.isArray(item) ? flatten(item) : item), [])
+    }
+
+    console.log(flatten(arr));
+
+    function flatten2(arr) {
+        let result = [];
+        
+        function _flat(arr) {
+            arr.forEach(i => {
+                Array.isArray(i) ? _flat(i) : result.push(i)
+            })
+        }
+
+        _flat(arr);
+        return result;
+    }
+
+    console.log(flatten2(arr));
+
+    function flatten3(arr) {
+        let stack = [...arr],
+            result = [];
+        
+        while(stack.length > 0) {
+            let next = stack.pop();
+            
+            if (Array.isArray(next)) {
+                stack.push(...next)
+            } else {
+                result.push(next)
+            }
+        }
+        return result.reverse();
+    }
+
+    console.log(flatten3(arr));
+</script>
