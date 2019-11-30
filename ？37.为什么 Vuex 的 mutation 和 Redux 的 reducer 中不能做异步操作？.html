@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>为什么 Vuex 的 mutation 和 Redux 的 reducer 中不能做异步操作？</title>
+</head>
+<body>
+    <pre>
+
+        官方文档中是说，在mutatinos中混合异步操作，会导致程序很难调试
+
+        虽然官方文档推荐异步操作需要放在actions中，但实际使用时，在mutations中使用异步也是可以的。
+        mutation只做同步的操作，就意味着它只会改变state，不会带来其它额外的副作用，
+        每执行一个mutations，都对应着一个新的state，在调试过程中，可以很清楚的看到每个mutation对应的状态。
+
+
+
+    </pre>
+</body>
+</html>

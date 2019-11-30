@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>下面代码中 a 在什么情况下会打印 1？</title>
+</head>
+<body>
+    <pre>
+        var a = ?;
+        if(a == 1 && a == 2 && a == 3){
+             console.log(1);
+        }
+
+        重写toString方法
+    </pre>
+</body>
+</html>
+<script>
+
+    var a = {
+        num: 1,
+        valueOf: function () {
+            return this.num ++
+        }
+    }
+    if(a == 1 && a == 2 && a == 3){
+        console.log(1);
+    }
+
+    console.log('--------------');
+    
+    var b = {
+        num: [1,2,3],
+        valueOf: function () {
+            return this.num.shift()
+        }
+    }
+    if(b == 1 && b == 2 && b == 3){
+        console.log(1);
+    }
+
+    console.log('--------------');
+
+    var c = [1,2,3];
+
+    /**
+     * 数组的toString，会对每个元素调用toString方法，并调用join()组成的字符串
+     */
+    c.join = c.shift;
+    if(c == 1 && c == 2 && c == 3){
+        console.log(1);
+    }
+</script>

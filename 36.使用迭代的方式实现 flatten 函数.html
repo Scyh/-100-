@@ -18,7 +18,7 @@
         return arr.reduce((sum, item) => sum.concat(Array.isArray(item) ? flatten(item) : item), [])
     }
 
-    console.log(flatten(arr));
+    console.log('flatten: ', flatten(arr));
 
     function flatten2(arr) {
         let result = [];
@@ -33,7 +33,7 @@
         return result;
     }
 
-    console.log(flatten2(arr));
+    console.log('flatten2: ', flatten2(arr));
 
     function flatten3(arr) {
         let stack = [...arr],
@@ -51,5 +51,38 @@
         return result.reverse();
     }
 
-    console.log(flatten3(arr));
+    console.log('flatten3: ', flatten3(arr));
+
+    function flatten4(arr) {
+        let stack = [...arr],
+            result = [];
+        
+        while(stack.length > 0) {
+            let next = stack.shift();
+            
+            if (Array.isArray(next)) {
+                stack.unshift(...next)
+            } else {
+                result.push(next)
+            }
+        }
+        return result;
+    }
+
+    console.log('flatten4: ', flatten4(arr));
+
+    function flatten5(arr) {
+        let result = [];
+
+        arr.forEach(i => {
+            if (Array.isArray(i)) {
+                result = result.concat(flatten5(i))
+            } else {
+                result.push(i)
+            }
+        })
+        return result;
+    }
+
+    console.log('flatten5: ', flatten5(arr));
 </script>

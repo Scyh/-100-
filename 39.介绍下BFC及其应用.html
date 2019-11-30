@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>介绍下BFC及其应用</title>
+</head>
+<style>
+    .parent {
+        width: 400px;
+        padding: 20px;
+        min-height: 40px;
+        background-color: red;
+        margin-bottom: 20px;
+    }
+    .child {
+        width: 300px;
+        height: 200px;
+        background-color: blue;
+    }
+
+    .parent-1 {
+        overflow: hidden;
+    }
+    .parent-1 .child-1 {
+        float: left;
+    }
+
+    .parent-2 {
+        float: left;
+    }
+    .parent-2 .child-2 {
+        float: left;
+    }
+
+    .parent-3 {
+        
+    }
+    .parent-3 .child-3-1 {
+        margin: 10px 0;
+        overflow: hidden;
+    }
+    .parent-3 .child-3-2 {
+        margin: 15px 0;
+        overflow: hidden;
+    }
+    .parent-3 .child-3-3 {
+        margin: 5px 0;
+        display: inline-block;
+    }
+
+    .parent-4 {
+        
+    }
+    .left {
+        width: 100px;
+        height: 200px;
+        float: left;
+        margin-right: 20px;
+        border: 1px solid #000;
+    }
+    .right {
+        overflow: hidden;
+        width: 200px;
+        height: 200px;
+        border: 1px solid #666666;
+    }
+</style>
+<body>
+    <pre>
+        BFC: Block Formating Context
+
+        块格式上下文
+
+        主要用于：
+            1. 清除浮动
+            2. 垂直边距重叠
+
+         创建BFC：
+            1. float
+            2. 绝对定位
+            3. overflow 不是 visiable
+            4. display为表格布局/弹性布局/行内元素/flow-root
+    </pre>
+
+    <div class="parent parent-1">
+        <div class="child child-1"></div>
+    </div>
+
+    <div class="parent parent-2">
+        <div class="child child-2"></div>
+    </div>
+
+    <div class="parent parent-3">
+        <div class="child child-3-1"></div>
+        <div class="child child-3-2"></div>
+        <div class="child child-3-3"></div>
+    </div>
+
+
+    <div class="parent parent-4">
+        <div class="left"></div>
+        <div class="right"> overflow: hidden 形成BFC </div>
+    </div>
+    
+</body>
+</html>
