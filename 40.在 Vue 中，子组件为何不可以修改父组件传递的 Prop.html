@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>在 Vue 中，子组件为何不可以修改父组件传递的 Prop</title>
+</head>
+<body>
+    <pre>
+
+        在 Vue 中，子组件为何不可以修改父组件传递的 Prop？
+
+        保证数据的单向流，更容易管理数据
+        如果有多个子组件，每个子组件都能修改props时，会使得数据难以追踪
+
+        在劫持prop属性时，会传入第四个参数，判断当前是不是根节点或者是不是更新子组件
+    </pre>
+</body>
+</html>
