@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>介绍 HTTPS 握手过程</title>
+</head>
+<body>
+    <pre>
+        https 和 http 的区别
+
+        https 握手过程
+
+        1. 客户端发送 加密会话 请求
+            发送支持的协议
+            发送支持的加密方式
+            发送一个随机数
+
+        2. 服务器收到请求
+            确认使用的协议
+            确认使用的加密方式
+            发送服务器证书
+            发送一个随机数
+
+        3. 客户端收到响应
+             验证服务器证书 -> 有问题 -> 提示是否要前往
+                           -> 没问题
+                                从证书中取出公钥
+                                生成一个随机数并用公钥加密
+                                编码改变通知，
+                                客户端握手结束，并发送前面所有内容的hash值，供服务器校验
+          
+        4. 服务器收到响应
+             编码改变通知
+             服务器端握手结束，并发送前面所有内容的hash值，供客户端校验
+
+                                
+
+        服务器证书组成: 证书颁发机构，过期时间，公钥
+
+        为什么要三个随机数：保证秘钥的随机性
+    </pre>
+</body>
+</html>

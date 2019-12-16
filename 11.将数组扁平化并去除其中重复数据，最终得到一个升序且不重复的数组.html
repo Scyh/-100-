@@ -30,5 +30,11 @@
         flatByReduce(arr)
     )
 
+    function flatByToString(arr) {
+        return Array.from(new Set(arr.toString().split(','))).sort((a, b) => a - b);
+    }
+
+    console.log('方法三: ', flatByToString(arr));
+    
 
 </script>

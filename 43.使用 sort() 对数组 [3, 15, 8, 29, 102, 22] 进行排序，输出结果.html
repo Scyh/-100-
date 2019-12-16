@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>使用 sort() 对数组 [3, 15, 8, 29, 102, 22] 进行排序，输出结果</title>
+</head>
+<body>
+    <pre>
+
+        [3, 15, 8, 29, 102, 22].sort()
+
+        Array.prototype.sort：默认会将元素转换成字符串
+
+        [3, 15, 8, 29, 102, 22].sort((a, b) => a - b)
+
+    </pre>
+</body>
+</html>
+<script>
+
+console.log([3, 15, 8, 29, 102, 22].sort());
+// [102, 15, 22, 29, 3, 8]
+
+
+console.log([3, 15, 8, 29, 102, 22].sort((a, b) => a - b));
+// [3, 8, 15, 22, 29, 102]
+
+
+var obj1 = {
+    a: 1,
+    toString: function () {
+        return this.a
+    }
+}
+
+var obj2 = {
+    b: 0,
+    toString: function () {
+        return this.b
+    }
+}
+
+console.log([obj1, obj2].sort())
+
+</script>
