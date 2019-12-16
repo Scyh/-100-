@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>双向绑定和 vuex 是否冲突</title>
+</head>
+<body>
+    <pre>
+
+        不冲突
+
+        Vuex本身的设计理念，就是 单向数据流，state只能通过mutation改变，保证能够对state追溯
+        
+        而vue的双向绑定，view直接修改state，不符合vuex的规范
+
+        vuex的官网也给出了解决方案，像监听iuput事件，computed的setter方法等。
+
+        总结来说，我觉得这是代码问题，不属于冲突问题
+
+    </pre>
+</body>
+</html>
