@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>某公司 1 到 12 月份的销售额存在一个对象里面</title>
+</head>
+<body>
+    <pre>
+
+        如下：{1:222, 2:123, 5:888}，请把数据处理为如下结构：[222, 123, null, null, 888, null, null, null, null, null, null, null]
+
+    </pre>
+</body>
+</html>
+<script>
+
+    var obj = {1:222, 2:123, 5:888};
+    var arr = [];
+    for (let i = 1; i <= 12; i++) {
+        arr.push(obj[i] || null)
+    }
+
+    console.log(arr);
+    
+
+    var arr2 = new Array(12).fill(1).map((i, idx) => obj[idx + 1] || null)
+    console.log(arr2);
+    
+
+</script>

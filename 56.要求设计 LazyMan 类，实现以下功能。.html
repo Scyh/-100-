@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>要求设计 LazyMan 类，实现以下功能。</title>
+</head>
+<body>
+    <pre>
+
+        LazyMan('Tony');
+        // Hi I am Tony
+
+        LazyMan('Tony').sleep(10).eat('lunch');
+        // Hi I am Tony
+        // 等待了10秒...
+        // I am eating lunch
+
+        LazyMan('Tony').eat('lunch').sleep(10).eat('dinner');
+        // Hi I am Tony
+        // I am eating lunch
+        // 等待了10秒...
+        // I am eating diner
+
+        LazyMan('Tony').eat('lunch').eat('dinner').sleepFirst(5).sleep(10).eat('junk food');
+        // Hi I am Tony
+        // 等待了5秒...
+        // I am eating lunch
+        // I am eating dinner
+        // 等待了10秒...
+        // I am eating junk food
+
+    </pre>
+</body>
+</html>
+<script>
+
+    class Lazy {
+        constructor(name) {
+            this.name = name;
+            console.log(`Hi I an ${name}`);
+            this.task = [];
+            setTimeout(() => {
+                this.next();
+            });
+        }
+        eat(meal) {
+            var that = this;
+            var fn = (function(meal) {
+                return function () {
+                    console.log(`I am eating ${meal}`)
+                    that.next();
+                }
+            })(meal);
+            this.task.push(fn);
+            return this
+        }
+        sleepFirst(time) {
+            var that = this;
+            var fn = (function(time) {
+                return function () {
+                    setTimeout(function() {
+                        console.log(`等待了${time}秒`)
+                        that.next();
+                    }, time * 1000)
+                }
+            })(time);
+            this.task.unshift(fn);
+            return this;
+        }
+        sleep(time) {
+            var that = this;
+            var fn = (function(time){
+                return function() {
+                    setTimeout(function() {
+                        console.log(`等待了${time}秒`)
+                        that.next();
+                    }, time * 1000)
+                }
+            })(time)
+            this.task.push(fn)
+            return this;
+        }
+        next() {
+            var taskItem = this.task.shift();
+            taskItem && taskItem();
+        }
+    }
+
+    function LazyMan(params) {
+        return new Lazy(params)
+    }
+
+    // LazyMan('Tony').eat('lunch').eat('dinner').sleepFirst(5).sleep(10).eat('junk food');
+
+
+    class Lazy2 {
+        constructor(name) {
+            this.queue = [];
+            this.name = name;
+            console.log(`Hi I am ${name}`);
+            setTimeout(() => {
+                this.execute();
+            })
+        }
+        delay(time) {
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve();
+                }, time * 1000)
+            })
+        }
+        eat(meal) {
+            this.queue.push(() => {
+                console.log(`I am eating ${meal}`)
+            });
+            return this;
+        }
+        sleep(time) {
+            this.queue.push(() => {
+                return this.delay(time).then(() => {
+                    console.log(`等待了${time}`)
+                })
+            });
+            return this;
+        }
+        sleepFirst(time) {
+            this.queue.unshift(() => {
+                return this.delay(time).then(() => {
+                    console.log(`等待了${time}`)
+                })
+            });
+            return this;
+        }
+        async execute() {
+            for (let itera of this.queue) {
+                await itera();
+            }
+        }
+    }
+
+
+    function LazyMan2(params) {
+        return new Lazy2(params)
+    }
+
+    LazyMan2('Tony').eat('lunch').eat('dinner').sleepFirst(5).sleep(10).eat('junk food');
+</script>

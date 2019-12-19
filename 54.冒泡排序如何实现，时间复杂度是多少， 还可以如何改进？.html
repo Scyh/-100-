@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>冒泡排序如何实现，时间复杂度是多少， 还可以如何改进？</title>
+</head>
+<body>
+    <pre>
+
+        时间复杂度：n^2
+
+
+    </pre>
+</body>
+</html>
+<script>
+
+    let arr = [];
+
+    for (let i = 0; i < 200; i++) {
+        arr.push(Math.floor(Math.random() * 200 + 1));
+    }
+
+    // var arr = [3,4,1,4,56,7,3456,8,1,3,56,0,234,1,3,1345,76,4,2,345]
+
+    function bubbleSort(arr) {
+        console.time();
+        arr = [].concat(arr);
+        let length = arr.length;
+        for ( let i = 0; i < length - 1; i++ ) {
+            for ( let j = 0; j < length - 1 - i; j++ ) {
+                if (arr[j + 1] < arr[j]) {
+                    [arr[j + 1], arr[j]] = [arr[j], arr[j + 1]]
+                }
+            }
+        }
+        console.timeEnd();
+        return arr;
+    }
+
+    console.log(bubbleSort(arr));
+    
+
+    function bubbleSort2(arr) {
+        arr = [].concat(arr);
+        console.time();
+        var i = arr.length - 1;
+        while(i > 0) {
+            let pos = 0;
+            for (let j = 0; j < i; j ++) {
+                if (arr[j + 1] < arr[j]) {
+                    pos = j;
+                    [arr[j + 1], arr[j]] = [arr[j], arr[j + 1]]
+                }
+            }
+            i = pos;
+        }
+        console.timeEnd();
+        return arr;
+    }
+
+    console.log(bubbleSort2(arr));
+
+
+</script>
