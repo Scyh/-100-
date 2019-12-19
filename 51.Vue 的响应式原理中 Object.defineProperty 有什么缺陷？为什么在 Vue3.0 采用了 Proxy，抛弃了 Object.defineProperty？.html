@@ -13,8 +13,34 @@
 
         无法监听到 用下标 改变数组对应值的变化
 
+        无法监听到对对属性的添加（删除？）
+
         如果监听的属性，是对象，仍然需要遍历该属性对象
 
     </pre>
 </body>
 </html>
+<script>
+
+    let obj = {
+        a: 1,
+        b: 2
+    }
+
+    var proxy = new Proxy(obj, {
+        get(target, prop) {
+            console.log(`get target ${prop}`);
+            return target[prop]
+        },
+        set(target, prop, val) {
+            console.log(`set target ${prop} value: `, val);
+            target[prop] = val
+        }
+    });
+
+    console.log(proxy.a);
+    proxy.b = 3;
+
+    console.log(obj);
+    
+</script>

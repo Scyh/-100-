@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>输出以下代码的执行结果并解释为什么</title>
+</head>
+<body>
+    <pre>
+        
+        var a = {n: 1};
+        var b = a;
+        a.x = a = {n: 2};
+
+        a {
+            n: 2,
+        }
+
+        b { 
+            n: 1,
+            x: { n: 2 }
+        }
+
+        console.log(a.x) 	
+        console.log(b.x)
+
+        执行顺序：
+            运算语句从右向左，
+            但是 点运算符 比 赋值运算 优先级高
+            
+            先执行a.x 此时 a.x实际为 ({n: 1}).x
+            再从右向左执行赋值
+            执行 a = { n: 2 }，此时 a 为新对象
+            执行 a.x = { n: 2 }，
+            此时的a.x，引用的是a的旧对象，即 { n: 1 }
+            执行完后，旧a对象为{ n: 1, x: { n: 2 } }
+            对象b一直引用着旧对象a，
+            所以 b = {
+                n: 1,
+                x: {
+                    n: 2
+                }
+            }
+            
+    </pre>
+</body>
+</html>
+<script>
+    var a = {n: 1};
+    var b = a;
+    a.x = a = {n: 2};
+
+    console.log(a.x) 	
+    console.log(b.x)
+
+    console.log(a);
+    console.log(b);
+    
+</script>

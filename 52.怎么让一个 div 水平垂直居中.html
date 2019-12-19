@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>怎么让一个 div 水平垂直居中</title>
+</head>
+<style>
+
+    .parent {
+        float: left;
+        margin: 20px;
+        width: 400px;
+        height: 400px;
+        border: 1px solid #ccc;
+    }
+    .child {
+        width: 100px;
+        height: 100px;
+        line-height: 1;
+        text-align: center;
+        color: #CCC;
+        background-color: red;
+    }
+    
+    .parent-1 {
+        position: relative;
+    }
+    .child-1 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -50px;
+        margin-left: -50px;
+    }
+
+    .parent-2 {
+        position: relative;
+    }
+    .child-2 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .parent-3 {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .parent-4 {
+        line-height: 350px;
+        text-align: center;
+    }
+    .child-4 {
+        display: inline-block;
+    }
+    
+    .child-5 {
+        position: relative;
+        top: 50%;
+        left: 50%;
+        margin-top: -50px;
+        margin-left: -50px;
+    }
+
+    .parent-6 {
+        text-align: center;
+
+    }
+    .parent-6::before {
+        content: '';
+        display: inline-block;
+        width: 0;
+        height: 100%;
+        vertical-align: middle;
+    }
+    .child-6 {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .parent-7 {
+        position: relative;
+    }
+    .child-7 {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: auto;
+    }
+</style>
+<body>
+    <div class="parent parent-1">
+        <div class="child child-1">
+            <p>已知宽高</p>
+            <p>绝对定位 + margin </p>
+        </div>
+    </div>
+
+    <div class="parent parent-2">
+        <div class="child child-2">
+            <p>未知宽高</p>
+            <p>绝对定位 + transform </p>
+        </div>
+    </div>
+
+    <div class="parent parent-3">
+        <div class="child child-3">
+            <p>未知宽高</p>
+            <p>flex</p>
+        </div>
+    </div>
+
+    <div class="parent parent-4">
+        <div class="child child-4">
+            <p>已知宽高</p>
+        </div>
+    </div>
+
+    <div class="parent parent-5">
+        <div class="child child-5">
+        </div>
+    </div>
+
+    <div class="parent parent-5">
+        <div class="child child-5">
+        </div>
+    </div>
+
+
+    <div class="parent parent-6">
+        <div class="child child-6">
+            <p>未知宽高</p>
+        </div>
+    </div>
+
+    <div class="parent parent-7">
+        <div class="child child-7">
+            <p>未知宽高</p>
+        </div>
+    </div>
+
+
+</body>
+</html>
