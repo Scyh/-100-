@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>分析比较 opacity: 0; visibility: hidden; display: none 优劣和适用场。</title>
+</head>
+<style>
+
+    .parent {
+        width: 200px;
+        height: 200px;
+        border: 1px solid #ccc;
+        visibility: hidden;
+    }
+    
+    .child {
+        width: 50px;
+        height: 50px;
+        margin: 0 auto;
+        background-color: aqua;
+        visibility: visible;
+    }
+
+    .parent-2 {
+        width: 200px;
+        height: 200px;
+        border: 1px solid #ccc;
+        opacity: 0;
+    }
+    
+    .child-2 {
+        width: 50px;
+        height: 50px;
+        margin: 0 auto;
+        background-color: aqua;
+        visibility: visible;
+        opacity: 1;
+    }
+
+</style>
+<body>
+    <pre>
+        display: none
+            会引起 回流
+            元素不占据文档流
+            
+        opacity: 0
+            只会引起重绘
+            仍然占据文档流
+            如果有子元素，子元素也会消失不见
+            可以点击到元素
+
+        visibility: hidden
+            只会引起重绘
+            仍然占据文档流
+            如果有子元素，并且子元素设置为visibility: visible，子元素可见
+            点击不到元素
+    </pre>
+    <p>----------------------------------------------------------------</p>
+    <br>
+    
+    <div class="parent">
+        <div class="child">
+            visibility: visible
+        </div>
+    </div>
+
+    <div class="parent-2">
+        <div class="child-2">
+            opacity: 1
+        </div>
+    </div>
+
+</body>
+</html>
+<script>
+    document.getElementsByClassName('parent')[0].onclick = function () {
+        alert('parent visibility: hidden');
+    }
+
+    // 如果点击到子元素，会冒泡到父元素的点击事件
+    document.getElementsByClassName('parent-2')[0].onclick = function () {
+        alert('parent opacity: o');
+        
+    }
+    
+</script>
