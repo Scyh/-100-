@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>已知如下代码，如何修改才能让图片宽度为 300px ？注意下面代码不可修改。</title>
+</head>
+<style>
+
+    .w-300 {
+        max-width: 300px;
+    }
+
+    .scale-625 {
+        /* 只会重绘 不会回流 */
+
+        transform: scale(0.625);
+    }
+    .zoom-625 {
+        /* 会改变元素的大小，Firefox不兼容 */
+        zoom: 0.625;
+    }
+    img {
+        float: left;
+    }
+</style>
+<body>
+    <pre>
+        已知如下代码，如何修改才能让图片宽度为 300px ？注意下面代码不可修改。
+    </pre>
+    <img class="w-300" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577250293823&di=8ebddbaa6ca28d302b90d360b88829ce&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180619%2Fdec06f35dab34224a9ed766cbeb4ea97.jpeg" style="width: 480px!important;">
+
+    <img class="zoom-625" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577250293823&di=8ebddbaa6ca28d302b90d360b88829ce&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180619%2Fdec06f35dab34224a9ed766cbeb4ea97.jpeg" style="width: 480px!important;">
+    
+    <img class="scale-625" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577250293823&di=8ebddbaa6ca28d302b90d360b88829ce&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180619%2Fdec06f35dab34224a9ed766cbeb4ea97.jpeg" style="width: 480px!important;">
+
+    <!-- <img class="" src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1577250293823&di=8ebddbaa6ca28d302b90d360b88829ce&imgtype=0&src=http%3A%2F%2F5b0988e595225.cdn.sohucs.com%2Fimages%2F20180619%2Fdec06f35dab34224a9ed766cbeb4ea97.jpeg" style="width: 480px!important;"> -->
+</body>
+</html>
