@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>箭头函数与普通函数（function）的区别是什么？构造函数（function）可以使用 new 生成实例，那么箭头函数可以吗？为什么？</title>
+</head>
+<body>
+    
+    <pre>
+        箭头函数与普通函数（function）的区别是什么？构造函数（function）可以使用 new 生成实例，那么箭头函数可以吗？为什么？
+
+        1. 箭头函数中没有this，指向上层作用域，而不是运行时的对象
+        2. 箭头函数无法使用arguments对象
+        3. 构造函数function可以用new生成实例
+            箭头函数不行，没有自己的this，没有prototype属性，因此无法执行new命令
+
+
+    </pre>
+</body>
+</html>
+<script>
+
+let id = 'window.id';
+var handler1 = {
+  id: '123456',
+
+  init: function() {
+      console.log(this.id);
+  }
+};
+
+handler1.init();    // 123456
+
+var handler2 = {
+  id: '654321',
+
+  init: () => {
+      console.log(this);
+      
+      console.log(this.id);
+  }
+};
+
+handler2.init();    // undefined
+
+var handler3 = {
+  id: '000000',
+
+  init() {
+      console.log(this.id);
+  }
+};
+
+handler3.init();    // 000000
+</script>
