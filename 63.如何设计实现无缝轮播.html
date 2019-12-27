@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>如何设计实现无缝轮播</title>
+</head>
+<style>
+div {
+    width: 300px;
+    overflow: hidden;
+}
+ul {
+    position: relative;
+    width: 9999em;
+    padding-left: 0!important;
+    list-style: none;
+}
+li {
+    float: left;
+}
+img {
+    width: 300px;
+    max-width: 300px;
+    height: 200px;
+}
+</style>
+<body>
+<button id="left">左</button>
+<button id="right">右</button>
+<div>
+    <ul class="box">
+        <li class="box-item"><img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1019461741,3903548976&fm=26&gp=0.jpg"></li>
+        <li class="box-item"><img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=640634768,852922399&fm=26&gp=0.jpg"></li>
+        <li class="box-item"><img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1012931202,1101716502&fm=26&gp=0.jpg" ></li>
+    </ul>
+</div>
+</body>
+</html>
+<script>
+(() => {
+// 克隆
+let ul = document.getElementsByClassName('box')[0],
+    lis = document.getElementsByClassName('box-item');
+
+let first = lis[0],
+    last = lis[lis.length - 1];
+
+ul.appendChild(first.cloneNode(true));
+ul.insertBefore(last.cloneNode(true), first);
+ul.style.left = -300 + 'px';
+ul.setAttribute('data-current', 1);
+let time = 0.5;
+
+let clickFlag = true;
+let MAX = lis.length - 1;
+
+// 绑定事件
+document.getElementById('right').onclick = function () {
+     if (!clickFlag) return;
+    let el = ul;
+        offset = 300;
+    let oldCurrent = el.getAttribute('data-current');
+    let current = oldCurrent * 1 - 1;
+    el.setAttribute('data-current', current)
+    const anmiate = () => {
+        clickFlag = false;
+        let left = parseFloat(el.style.left);
+        let step = offset / 5;
+        if (Math.abs(step) <= 0.1) step = offset;
+        el.style.left = left + step + 'px';
+        offset -= step;
+        if (offset != 0) requestAnimationFrame(anmiate);
+        else {
+            if (current <= 0) {
+                el.style.left = -300 * (MAX - 1) + 'px';
+                el.setAttribute('data-current', MAX - 1)
+            } else {
+                el.setAttribute('data-current', current)
+            }
+            setTimeout(() => {
+                clickFlag = true; 
+            }, 0);
+        }
+    };
+    anmiate();
+}
+
+document.getElementById('left').onclick = function () {
+
+    if (!clickFlag) return;
+
+    let el = ul;
+        offset = -300;
+
+    let oldCurrent = el.getAttribute('data-current');
+    let current = oldCurrent * 1+ 1;
+    el.setAttribute('data-current', current)
+    const anmiate = () => {
+        clickFlag = false;
+        let left = parseFloat(el.style.left);
+        let step = offset / 5;
+        if (Math.abs(step) <= 0.1) step = offset;
+        el.style.left = left + step + 'px';
+        offset -= step;
+        if (offset != 0) requestAnimationFrame(anmiate);
+        else {
+            if (current >= MAX) {
+                el.style.left = -300 + 'px';
+                el.setAttribute('data-current', 1)
+            } else {
+                el.setAttribute('data-current', current)
+            }
+            setTimeout(() => {
+                clickFlag = true; 
+            }, 0);
+        }
+    };
+    anmiate();
+}
+})();
+</script>

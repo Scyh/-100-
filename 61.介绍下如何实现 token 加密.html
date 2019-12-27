@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>介绍下如何实现 token 加密</title>
+</head>
+<body>
+    <pre>
+        介绍下如何实现 token 加密
+
+        后端生成token
+        前端接收token，
+        每次向后端发起请求时，携带token
+        后端判断token是否有效/过期
+
+
+        token:
+            JWT实现
+                header
+                    {
+                        "alg": 使用算法 || none
+                    }
+
+                payload 数据
+                    {
+                        "exp": 过期时间
+                        "iss": 发行者
+                        "sub": 主题
+                        ...
+                    }
+                signature 签名
+                    签名通过加密算法，用一个secret，将Base64(header).Base64(playload) 组成的字符串加密而成
+    </pre>
+</body>
+</html>
