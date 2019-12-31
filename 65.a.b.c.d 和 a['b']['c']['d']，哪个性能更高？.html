@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>a.b.c.d 和 a['b']['c']['d']，哪个性能更高？</title>
+</head>
+<body>
+    <pre>
+        a.b.c.d 和 a['b']['c']['d']，哪个性能更高？
+
+        前者
+        通过 AST 解析其代码树时，发现 [] 语法需要解析更多的东西
+
+
+    </pre>
+</body>
+</html>
