@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>如何解决移动端 Retina 屏 1px 像素问题</title>
+</head>
+<style>
+    .box {
+        width: 300px;
+        height: 300px;
+        margin: 20px;
+        background: #eee;
+    }
+
+    .box-transform {
+        position: relative;
+    }
+    .border-bottom-transform::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #333;
+        transform: scaleY(0.5);
+    }
+    .border-bottom-by-box-shadow {
+        box-shadow: inset 0 -1px 1px -1px #000;
+    }
+</style>
+<body>
+    <pre>
+        如何解决移动端 Retina 屏 1px 像素问题
+
+
+        使用 伪类 + tansform scale(1, 0.5);
+
+        使用图片替代
+    </pre>
+
+    <div class="box box-transform border-bottom-transform"></div>
+
+    <div class="box border-bottom-by-box-shadow"></div>
+</body>
+</html>

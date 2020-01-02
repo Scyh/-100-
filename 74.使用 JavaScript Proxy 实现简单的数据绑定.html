@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>使用 JavaScript Proxy 实现简单的数据绑定</title>
+</head>
+<body>
+    <pre>
+        使用 JavaScript Proxy 实现简单的数据绑定
+
+    </pre>
+
+    <input type="text" id="input">
+    <button id="btn">click</button>
+</body>
+</html>
+<script>
+    let input = document.getElementById('input');
+    function ProxyObject(obj) {
+        let result = new Proxy(obj, {
+            get: function (origin, prop) {
+                console.log('getVal');
+                return origin[prop];
+            },
+            set: function (origin, prop, val) {
+                console.log(`prop: ${prop}, val: ${val}`);
+                origin[prop] = val;
+                input.value = val
+            }
+        });
+        return result;
+    }
+
+    let obj = ProxyObject({
+        a: 1,
+        b: 2
+    });
+
+    input.oninput = function () {
+        obj.a = this.value;
+    }
+
+    document.getElementById('btn').onclick = function () {
+        obj.a ++;
+    }
+
+</script>

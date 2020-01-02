@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>为什么普通 for 循环的性能远远高于 forEach 的性能，请解释其中的原因</title>
+</head>
+<body>
+    <pre>
+        为什么普通 for 循环的性能远远高于 forEach 的性能，请解释其中的原因
+
+
+        for 循环只需要专注循环条件，和循环体的执行
+
+        forEach 还要调用回调，考虑回调的参数、上下文，等等
+
+    </pre>
+</body>
+</html>
+<script>
+
+    function generateRandomArray(length) {
+        return new Array(length).fill(1).map(i => Math.random() * 9999 + 1);
+    }
+
+    let arr = generateRandomArray(10000),
+
+        arrCopy = [].concat(arr);
+
+    console.time('forEach');
+
+    arr.forEach(function (item, idx) {
+        let newItem = item * 2;
+    });
+
+    console.timeEnd('forEach');
+
+    console.time('for');
+
+    for (let i = 0, length = arrCopy.length; i < length; i++) {
+        let newItem = arrCopy[i] * 2;
+    }
+
+    console.timeEnd('for');
+
+</script>

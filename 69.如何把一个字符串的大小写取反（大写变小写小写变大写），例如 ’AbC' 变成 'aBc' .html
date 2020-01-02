@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>如何把一个字符串的大小写取反（大写变小写小写变大写），例如 ’AbC' 变成 'aBc' </title>
+</head>
+<body>
+    <pre>
+        如何把一个字符串的大小写取反（大写变小写小写变大写），例如 ’AbC' 变成 'aBc' 
+    </pre>
+</body>
+</html>
+<script>
+    let str = '123AbC';
+
+    console.log('origin str: ', str);
+    
+
+    function reverseUpperAndLowerCase(str) {
+        let start = 0,
+            max = str.length,
+            result = '';
+
+        let BASECODE = 'a'.charCodeAt(0),
+            disCount = BASECODE - 'A'.charCodeAt(0);
+
+        let Max = BASECODE + 26,
+            Min = BASECODE - disCount;
+
+        while(start < max) {
+            let current = str[start],
+                currentCode = str.charCodeAt(start);
+                result += (currentCode >= BASECODE ? current.toUpperCase() : current.toLowerCase());
+            start++;
+        }
+        return result;
+    }
+    
+    console.log(reverseUpperAndLowerCase(str));
+
+    function reverseUpperAndLowerCase2(str) {
+        let result = '';
+
+        for (let i = 0, length = str.length; i < length; i++) {
+            let current = str[i];
+            result += (current === current.toLowerCase() ? current.toUpperCase() : current.toLowerCase());
+        }
+        return result;
+    }
+
+    console.log(reverseUpperAndLowerCase2(str));
+
+</script>

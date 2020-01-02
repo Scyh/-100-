@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>介绍下 BFC、IFC、GFC 和 FFC</title>
+</head>
+<style>
+    .parent {
+        margin: 20px 0;
+        background: red;
+    }
+    .parent::after {
+        content: '';
+        display: table;
+    }
+    .child {
+        width: 100px;
+        height: 300px;
+        background: blue;
+    }
+
+
+    .parent-1 {
+        display: inline-block;
+        width: 100%;
+        overflow: auto;
+    }
+    
+    .parent-2 {
+        display: flow-root;
+    }
+
+    .child-1, 
+    .child-2 {
+        float: left;
+    }
+</style>
+<body>
+    <pre>
+        介绍下 BFC、IFC、GFC 和 FFC
+
+        BFC 块格式化上下文，块级元素布局过程发生的区域，也是浮动元素与其他元素交互的元素
+            
+            创建BFC的条件
+                html元素
+                float
+                overflow  不为 visible
+                position  ausolute/fixed
+                display   inline-block/匿名表格元素(table-row/table-cell/table-caption)/flow-root
+
+            解决 垂直边距重叠、父元素高度塌陷
+    </pre>
+
+
+    <div class="parent parent-1">
+        <div class="child child-1"></div>
+    </div>
+
+    <div class="parent parent-2">
+        <div class="child child-2"></div>
+    </div>
+</body>
+</html>

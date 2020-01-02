@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>数组编程题</title>
+</head>
+<body>
+    <pre>
+
+        随机生成一个长度为 10 的整数类型的数组，例如 [2, 10, 3, 4, 5, 11, 10, 11, 20]，将其排列成一个新数组，要求新数组形式如下，例如 [[2, 3, 4, 5], [10, 11], [20]]。
+
+    </pre>
+</body>
+</html>
+<script>
+
+let arr = new Array(10).fill(0).map(i =>　parseInt(Math.random() * 99 + 1))
+
+console.log(arr);
+
+function splitArr(arr) {
+    arr.sort((a, b) => a - b);
+    let temp = {};
+    arr.forEach(i => {
+        let num = parseInt(i / 10);
+        if (!temp[num]) temp[num] = [];
+        if (!temp[num].includes(i)) temp[num].push(i);
+    });
+    return Object.values(temp)
+}
+
+console.log(splitArr(arr));
+
+function splitArr2(arr) {
+    arr.sort((a, b) => a - b);
+    let result = [];
+    arr.forEach(i => {
+        let num = parseInt(i / 10);
+        if (!result[num]) result[num] = [];
+        if (!result[num].includes(i)) result[num].push(i);
+    });
+    return result.filter(i => !!i)
+}
+
+console.log(splitArr2(arr));
+
+function split2ContinuousNum(arr) {
+    arr = [].concat(arr);
+    arr.sort((a, b) => a - b);
+    arr = Array.from(new Set(arr));
+    let result = [];
+    
+    let length = arr.length;
+    while (length > 0) {
+        let first = arr.shift();
+
+        let resultLength = (result.length - 1) > 0 ? (result.length - 1) : 0;
+        if (!result[resultLength]) result[resultLength] = [];
+
+        let lastCell = result[resultLength],
+            lastCellLength = (lastCell.length - 1) > 0 ? (lastCell.length - 1) : 0;
+        
+        if (!lastCell[lastCellLength]) lastCell[lastCellLength] = first;
+        else {
+            let lastCellValue = lastCell[lastCellLength];
+            if (first === (lastCellValue + 1)) {
+                lastCell.push(first);
+            } else {
+                result[resultLength + 1] = [first];
+            }
+        }
+        length --;
+    }
+    return result;
+}
+
+console.log(split2ContinuousNum(arr));
+</script>
