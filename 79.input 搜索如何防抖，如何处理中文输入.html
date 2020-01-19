@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>input 搜索如何防抖，如何处理中文输入</title>
+</head>
+<body>
+    <input type="text" id="input">
+</body>
+</html>
+<script>
+console.log(`%cinput 搜索如何防抖，如何处理中文输入`, 'color: red');
+
+let input = document.getElementById('input');
+input.addEventListener('compositionstart', compositionHandle);
+input.addEventListener('compositionend', compositionHandle);
+input.addEventListener('compositionupdate', compositionHandle);
+
+input.addEventListener('input', function (event) {
+    console.log('--- input has trigger ');
+    
+    if (event.target.composition) return;
+    console.log('input has trigger');
+})
+
+function compositionHandle(event) {
+    switch(event.type) {
+        case 'compositionstart':
+            event.target.composition = true;
+            console.log('compositionstart trigger');
+            break;
+        case 'compositionend':
+            event.target.composition = false;
+            console.log('compositionend trigger');
+
+            let EVENT = document.createEvent('input');
+            event.target.dispatchEvent(EVENT);
+            break;
+        case 'compositionupdate':
+            if (event.target.composition) return;
+            console.log('compositionupdate');
+            break;
+    }
+}
+</script>

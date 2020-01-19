@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Vue 的父组件和子组件生命周期钩子执行顺序是什么</title>
+</head>
+<body>
+    <pre>
+        加载顺序：
+
+            parent beforeCreate -> parent created -> parent beforeMount ->
+
+            child beforeCreate -> child created -> child beforeMount -> child mounted ->
+
+            parent mounted
+
+        父/子组件更新顺序：
+
+            parent beforeUpdate ->
+
+            child beforeUpdate -> child updated ->
+
+            parent updated
+
+        父组件销毁顺序：
+            parent beforeDestory ->
+            
+            child beforeDestory - > child destoryed
+
+            parent destoryed
+    </pre>
+</body>
+</html>
