@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>已知数据格式，实现一个函数 fn 找出链条中所有的父级 id</title>
+</head>
+<body>
+</body>
+</html>
+<script>
+let arr = [
+    {
+        id: 1,
+        name: "广东省",
+        children: [
+            {
+                id: 11,
+                name: "深圳市",
+                children: [
+                    {
+                        id: 111,
+                        name: "南山区",
+                        children: [
+                            {
+                                id: 1111,
+                                name: "测试"
+                            }
+                        ]
+                    },
+                    {
+                        id: 112,
+                        name: "福田区区"
+                    }
+                ]
+            }
+        ]
+    }
+]
+
+function getParentIds(arr) {
+    let result = [];
+
+    function _fn(_arr) {
+        for (let i = 0, length = _arr.length; i < length; i++) {
+            let item = _arr[i];
+            if (item.children) {
+                result.push(item.id);
+                _fn(item.children);
+            }
+        }
+    }
+
+    _fn(arr);
+    return result;
+}
+
+
+console.log(getParentIds(arr));
+
+
+function getParentIds2(arr) {
+    arr = [].concat(arr);
+    let result = [],
+        i = 0;
+
+    while(arr.length) {
+        let item = arr.shift();
+        if (item.children) {
+            result.push(item.id);
+            arr = arr.concat(item.children);
+        }
+    }
+    return result;
+}
+
+console.log(getParentIds2(arr));
+</script>
