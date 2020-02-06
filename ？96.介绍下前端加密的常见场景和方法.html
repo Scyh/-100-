@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>介绍下前端加密的常见场景和方法</title>
+</head>
+<body>
+    <pre>
+        介绍下前端加密的常见场景和方法
+
+        1.表单密码
+            md5：以512位分组来处理输入的信息；
+                且每一分组又被划分为16个32位子分组；
+                经过了一系列的处理后；
+                算法的输出由四个32位分组组成；
+                将这四个32位分组级联后将生成一个128位散列值
+
+            base64：将字符根据ASCII码，并转换成二进制，补位成8位；
+                    每六位划分，4个为一组，不足4个的，根据==补成4组，转换成10进制的数字；
+                    最后根据ASCII码转换成对应的字符
+        
+    </pre>
+</body>
+</html>
