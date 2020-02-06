@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模拟实现一个深拷贝，并考虑对象相互引用以及 Symbol 拷贝的情况</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+console.log('模拟实现一个深拷贝，并考虑对象相互引用以及 Symbol 拷贝的情况');
+
+const symbolName = Symbol();
+const obj = {
+    objNumber: new Number(1),
+    number: 1,
+    objString: new String('ss'),
+    string: 'stirng',
+    objRegexp: new RegExp('\\w'),
+    regexp: /w+/g,
+    date: new Date(),
+    function: function () {},
+    array: [{a: 1}, 2],
+    [symbolName]: 111
+}
+obj.d = obj;
+
+// function deepClone(target, cache = new Set()) {
+//     let constructor = target.constructor.name;
+//     switch(constructor) {
+//         case 'Number':
+//             return Number(target);
+//             berak;
+//         case 'String':
+//             return String(target);
+//             break;
+//         case 'Boolean':
+//             return Boolean(target);
+//             break;
+//         case 'RegExp':
+//             return RegExp(target);
+//             break;
+//         case 'Date':
+//             return Date(target);
+//             break;
+//         case 'Function':
+//             return target;
+//         case 'Object':
+//             if (cache.has(target)) {
+//                 return target;
+//             }
+//             cache.add(target);
+//             let newObj = {};
+//             for(let i in target) {
+//                 console.log(i);
+                
+//                 newObj[i] = deepClone(target[i], cache);
+//             }
+//             return newObj;
+//             break;
+//         case 'Array':
+//             if (cache.has(target)) {
+//                 return target;
+//             }
+//             cache.add(target);
+//             let newArray = [];
+//             target.forEach(function(i) {
+//                 newArray.push(deepClone(i, cache))
+//             });
+//             return newArray;
+//             break;
+//         case 'Symbol':
+//             return new Symbol(target);
+//             break;
+//         default:
+//             console.log(constructor);
+//             break;
+//     }
+// }
+// let newObj = deepClone(obj);
+// console.log(newObj);
+
+// console.log(newObj === obj);
+
+
+function deepClone2(target, cache = new Set()) {
+    if (typeof target !== 'object') {
+        return target;
+    } else if (Object.prototype.toString.call(target) === '[object Object]') {
+        if (cache.has(target)) return target;
+        cache.add(target);
+        let newObj = {};
+        [...Object.keys(target), ...Object.getOwnPropertySymbols(target)].forEach(i => {
+            newObj[i] = deepClone2(target[i], cache);
+        });
+        return newObj;
+    } else if (Array.isArray(target)) {
+        if (cache.has(target)) return target;
+        cache.add(target);
+        
+        return target.map(i => {
+            return deepClone2(i, cache);
+        });
+    } else {
+        let constructor = target.constructor;
+        return new constructor(target);
+    }
+}
+let newObj2 = deepClone2(obj);
+console.log(newObj2);
+
+console.log(newObj2 === obj);
+</script>
