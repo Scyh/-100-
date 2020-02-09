@@ -13,4 +13,19 @@
 <script>
 console.log('不用加减乘除运算符，求整数的7倍');
 
+function bitAdd(m, n) {
+    while (m) {
+        [m, n] = [(m & n) << 1, n ^ m]
+    }
+    return n
+}
+
+function multipleOfSeven(num) {
+    return bitAdd(num << 3, -num)
+}
+
+console.log(multipleOfSeven(4));
+console.log(multipleOfSeven(10));
+console.log(multipleOfSeven(11));
+
 </script>

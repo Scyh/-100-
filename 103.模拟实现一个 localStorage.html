@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>模拟实现一个 localStorage</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+console.log('%c模拟实现一个 localStorage', 'color: red');
+
+function _storage() {
+    this.data = {};
+}
+
+_storage.prototype.getItem = function() {}
+_storage.prototype.setItem = function() {}
+_storage.prototype.clear = function() {
+    this.data = {}
+}
+
+var  _localStorage = new _storage();
+</script>
