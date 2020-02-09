@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>请写出如下代码的打印结果</title>
+</head>
+
+<body>
+    <pre>
+        请写出如下代码的打印结果
+        function Foo() {
+            Foo.a = function() {
+            console.log(1)
+            }
+            this.a = function() {
+            console.log(2)
+            }
+            }
+            Foo.prototype.a = function() {
+            console.log(3)
+            }
+            Foo.a = function() {
+            console.log(4)
+            }
+            Foo.a();
+            let obj = new Foo();
+            obj.a();
+            Foo.a();
+    </pre>
+</body>
+
+</html>
+<script>
+    function Foo() {
+        Foo.a = function () {
+            console.log(1)
+        }
+        this.a = function () {
+            console.log(2)
+        }
+    }
+    Foo.prototype.a = function () {
+        console.log(3)
+    }
+    Foo.a = function () {
+        console.log(4)
+    }
+    Foo.a();    // 4
+    let obj = new Foo();
+    obj.a();    // 3 ×
+                // 2 √
+
+    Foo.a();    // 1
+</script>
