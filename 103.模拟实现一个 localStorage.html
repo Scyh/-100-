@@ -17,11 +17,61 @@ function _storage() {
     this.data = {};
 }
 
-_storage.prototype.getItem = function() {}
-_storage.prototype.setItem = function() {}
+_storage.prototype.getItem = function(key) {
+    return key ? this.data[key] : null;
+}
+_storage.prototype.setItem = function(key, val) {
+    this.data[key] = val ? val.toString() : "";
+}
+_storage.prototype.setItem = function(key) {
+    delete this.data[key];
+}
 _storage.prototype.clear = function() {
     this.data = {}
 }
 
-var  _localStorage = new _storage();
+var _localStorage = new _storage();
+
+/***************************************/
+
+function __storage() {
+    var defaultExpire = 1000 * 60 * 60 * 24 * 30
+    function getCookies(){
+        return document.cookie.match(/([^=;]+)=[([^;]+)]/g) || []
+    }
+
+    function get(key) {
+        var cookies = getCookies()
+        for(var length = cookies.length - 1; length > 0; length--) {
+            var _key = cookies[length].split('=')[0]
+            if (key === _key) return cookies[length].split('=')[1]
+        }
+        return null
+    }
+
+    function set(key, val, expires) {
+        document.cookie = key + '=' + val.toString() + ';expires=' + expires ? expires * 1000 * 60 * 60 * 24 : defaultExpire
+    }
+
+    function remove(key) {
+        var cookies = getCookies()
+        for(var length = cookies.length - 1; length > 0; length--) {
+            if (key === _key) set(key, null, -1)
+        }
+    }
+
+    function clear() {
+        var cookies = getCookies()
+        for(var length = cookies.length - 1; length > 0; length--) {
+            set(key, null, -1)
+        }
+    }
+
+    return {
+        getItem: get,
+        setItem: set,
+        removeItem: remove,
+        clear,
+    }
+}
 </script>
