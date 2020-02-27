@@ -32,4 +32,13 @@
     let url = 'https://www.xx.cn/api?keyword=&level1=&local_batch_id=&elective=800,700&local_province_id=33'
     console.log(getUrlParams(url, 'elective'));
     
+
+    function getUrlParams2(url, params) {
+        var paramsVal = new URLSearchParams(url).get(params)
+        return paramsVal ? paramsVal.split(',') : []
+    }
+
+    console.log(getUrlParams2(url, 'elective'));
+
+
 </script>
