@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编程题，写个程序把 entry 转换成如下对象</title>
+</head>
+<body>
+    <pre>
+        var entry = {
+            a: {
+              b: {
+                c: {
+                  dd: 'abcdd'
+                }
+              },
+              d: {
+                xx: 'adxx'
+              },
+              e: 'ae'
+            }
+          }
+          
+        // 要求转换成如下对象
+        var output = {
+            'a.b.c.dd': 'abcdd',
+            'a.d.xx': 'adxx',
+            'a.e': 'ae'
+        }
+    </pre>
+</body>
+</html>
+<script>
+    let obj = {
+            a: {
+                b: {
+                    c: {
+                        dd: 'abcdd'
+                    }
+                },
+                d: {
+                    xx: 'adxx'
+                },
+                e: 'ae'
+            },
+            f: 'f'
+        }
+
+
+    function deepAnalyze(obj, result = {}, pre = '') {
+        for (let i in obj) {
+            if (obj.hasOwnProperty(i)) {
+                let current = obj[i],
+                    mergeKey = pre + i
+                if (Object.prototype.toString.call(current) === '[object Object]') {
+                    deepAnalyze(current, result, mergeKey + '.');
+                } else result[mergeKey] = current
+            }
+        }
+        return result
+    }
+
+    // function deepAnalyze(obj) {
+    //     if (!isSingleObj(obj)) {
+    //         let item = obj
+    //         if (Object.prototype.toString.call(item) === '[object Object]') {
+    //             let newObj = {}
+    //             for (let i in item) {
+    //                 if (Object.prototype.toString.call(item[i]) === '[object Object]') {
+    //                     Object.keys(item[i]).forEach(j => {
+    //                         newObj[i + '.' + j] = item[i][j]
+    //                     })
+    //                 } else {
+    //                     newObj[i] = item[i]
+    //                 }
+    //             }
+    //             obj = newObj
+    //         }
+    //         return deepAnalyze(obj)
+    //     } else return obj
+    // }
+
+    // function isSingleObj(obj) {
+    //     return !Object.values(obj).some(i => Object.prototype.toString.call(i) === '[object Object]')
+    // }
+    console.log(deepAnalyze(obj));
+    
+</script>

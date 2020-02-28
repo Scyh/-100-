@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>编程题，写个程序把 entry 转换成如下对象（跟昨日题目相反）</title>
+</head>
+<body>
+    <pre>
+        编程题，写个程序把 entry 转换成如下对象（跟昨日题目相反）
+
+        var entry = {
+            'a.b.c.dd': 'abcdd',
+            'a.d.xx': 'adxx',
+            'a.e': 'ae'
+          }
+          
+          // 要求转换成如下对象
+          var output = {
+            a: {
+              b: {
+                c: {
+                  dd: 'abcdd'
+                }
+              },
+              d: {
+                xx: 'adxx'
+              },
+              e: 'ae'
+            }
+          }
+    </pre>
+</body>
+</html>
+<script>
+    let obj = {
+        'a.b.c.dd': 'abcdd',
+        'a.d.xx': 'adxx',
+        'a.e': 'ae'
+    }
+
+    function unflat(obj) {
+        let result = {}
+        let map = {}
+        for (let i in obj) {
+            let keyArr = i.split('.'),
+                length = keyArr.length
+            keyArr.forEach((key, idx) => {
+                let newObj = {}
+                if (!map[key]) {
+                    map[key] = newObj
+                }
+                if (idx === 0) {
+                    result[key] = map[key]
+                } else {
+                    let parentKey = keyArr[idx - 1]
+                    map[parentKey][key] = idx === length - 1 ? obj[i] : newObj
+                }
+            })
+        }
+        return result
+    }
+
+    console.log(unflat(obj));
+    
+</script>
