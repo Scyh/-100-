@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>考虑到性能问题，如何快速从一个巨大的数组中随机获取部分元素</title>
+</head>
+<body>
+    <pre>
+        考虑到性能问题，如何快速从一个巨大的数组中随机获取部分元素
+    </pre>
+</body>
+</html>
+<script> 
+    console.log('考虑到性能问题，如何快速从一个巨大的数组中随机获取部分元素');
+
+    // 洗牌算法
+    function shuffle(arr, count) {
+        var result = [],
+            length = arr.length
+
+        for (var i = 0; i < count; i++) {
+            var randomIndex = Math.floor(Math.random() * (length - i))
+            result.push(arr[randomIndex])
+            [arr[randomIndex], arr[length - 1- i]] = [arr[length - 1 - i], arr[randomIndex]]
+        }
+        return result
+    }
+    
+    function randomArrayElement(arr, count, result = []) {
+        if (result.length < count) {
+            var randomIndex = Math.floor(Math.random() * (arr.length - 1))
+            result.push(arr[randomIndex])
+            return randomArrayElement(arr, count, result)
+        } else return result
+    }
+
+    var arr = new Array(10000).fill(0).map((i, idx) => idx);
+    console.log(arr);
+
+    console.log(randomArrayElement(arr, 1000));
+
+
+    console.log(shuffle(arr, 1000));
+    
+    
+</script>

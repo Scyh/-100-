@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>请写出如下代码的打印结果</title>
+</head>
+<body>
+    <pre>
+        var name = 'Tom';
+        (function() {
+            if (typeof name == 'undefined') {
+
+                // 变量提升
+                var name = 'Jack';
+                console.log('Goodbye ' + name);
+            } else {
+                console.log('Hello ' + name);
+            }
+        })();
+
+
+        'Goodbye Jack'
+    </pre>
+</body>
+</html>
+<script>
+    var name = 'Tom';
+    (function() {
+        if (typeof name == 'undefined') {
+
+            // 变量提升
+            var name = 'Jack';
+            console.log('Goodbye ' + name);
+        } else {
+            console.log('Hello ' + name);
+        }
+    })();
+
+</script>
