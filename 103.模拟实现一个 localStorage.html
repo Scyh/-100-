@@ -34,15 +34,15 @@ var _localStorage = new _storage();
 
 /***************************************/
 
-function __storage() {
-    var defaultExpire = 1000 * 60 * 60 * 24 * 30
+function __Storage() {
+    var defaultExpire = 30;
     function getCookies(){
-        return document.cookie.match(/([^=;]+)=[([^;]+)]/g) || []
+        return document.cookie.match(/([^=;]+)=([^;]+)/g) || []
     }
 
     function get(key) {
         var cookies = getCookies()
-        for(var length = cookies.length - 1; length > 0; length--) {
+        for(var length = cookies.length - 1; length >= 0; length--) {
             var _key = cookies[length].split('=')[0]
             if (key === _key) return cookies[length].split('=')[1]
         }
@@ -50,7 +50,7 @@ function __storage() {
     }
 
     function set(key, val, expires) {
-        document.cookie = key + '=' + val.toString() + ';expires=' + expires ? expires * 1000 * 60 * 60 * 24 : defaultExpire
+        document.cookie = key + '=' + val.toString() + ';expires=' + new Date((+new Date()) + (expires || defaultExpire) * 1000 * 60 * 60 * 24).toUTCString()
     }
 
     function remove(key) {
@@ -74,4 +74,15 @@ function __storage() {
         clear,
     }
 }
+var __instance = __Storage();
+
+var __storage = new Proxy(__instance, {
+    get: function(obj, key) {
+        if (obj.hasOwnProperty(key)) return obj[key]
+        else return obj.getItem(key)
+    }
+})
+__storage.setItem('a', 1);
+console.log(__storage.a);
+
 </script>
