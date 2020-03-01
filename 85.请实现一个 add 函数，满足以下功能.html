@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>请实现一个 add 函数，满足以下功能</title>
+</head>
+<body>
+    <pre>
+        add(1); 	  // 1
+        add(1)(2);    // 3
+        add(1)(2)(3); // 6
+        add(1)(2, 3); // 6
+        add(1, 2)(3); // 6
+        add(1, 2, 3); // 6
+    </pre>
+</body>
+</html>
+<script>
+console.log('%c请实现一个 add 函数，满足以下功能', 'color: #666');
+
+function add(...args) {
+    function _add(..._args) {
+        args = args.concat(_args);
+        return add.apply(null, args);
+    }
+    _add.toString = function () {
+        return args.length === 0
+                ? 0
+                : args.reduce((sum, cur) => sum += cur, 0)
+    }
+
+    return _add;
+}
+console.log(add(1));
+console.log(add(1)(2));
+console.log(add(1, 2)(3));
+console.log(add(1, 2, 3));
+
+
+
+// const currying = fn =>
+//     judeg = (...args) =>
+//         args.length >= fn.length
+//             ? fn(...args)
+//             : (...arg) => judeg(...args, ...arg);
+
+
+// let add2 = currying(function (...args) {
+//     return args.reduce((a, b) => a + b);
+// });
+</script>
