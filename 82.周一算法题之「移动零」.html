@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>周一算法题之「移动零」</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+console.log('%c周一算法题之「移动零」', 'color: #666');
+
+function moveZero(arr) {
+    let j = 0;
+    for (let i = 0, length = arr.length; i < (length - j); i++) {
+        if (arr[i] === 0) {
+            arr.splice(i, 1);
+            arr.push(0);
+            i--;
+            j++;
+        }
+    }
+    return arr;
+}
+console.log(moveZero([0,0,1,0,0,0,3,12]));
+
+
+function moveZero2(arr) {
+    for (let i = arr.length - 1; i >= 0; i--) {
+        if (arr[i] === 0) {
+            arr.splice(i, 1);
+            arr.push(0);
+        }
+    }
+    return arr;
+}
+console.log(moveZero2([0,0,1,0,0,0,3,12]));
+
+
+function moveZero3(arr) {
+    let index = 0;
+    for (let i = 0, length = arr.length; i < length; i++) {
+        if (arr[i] === 0) {
+            index++;
+        } else if (index > 0) {
+            // 将遇到的0 与当前位置交换位置
+
+            arr[i - index] = arr[i];
+            arr[i] = 0;
+        }
+    };
+    return arr;
+}
+console.log(moveZero3([0,0,1,0,0,0,3,12]));
+</script>

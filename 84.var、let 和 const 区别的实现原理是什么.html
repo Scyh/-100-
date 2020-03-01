@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>var、let 和 const 区别的实现原理是什么</title>
+</head>
+<body>
+    <pre>
+        var、let 和 const 区别的实现原理是什么
+
+        变量声明周期：
+            声明（declaration phase）：在作用域声明一个变量
+            初始化（initiallization phase）：为变量分配控件，并初始化为undefined
+            赋值（assignment phase）：赋值
+
+        var：遇到该语句时，会完成声明和初始化，即，（声明和初始化变量提升）
+
+        let/const：只会进行声明，只有解析到该行时，才会进行初始化并赋值，即（声明提升）
+                    每次声明时，都会查找该变量是否已经声明
+
+        function：声明、初始化、赋值都同时进行，所以函数声明提升的优先级，高于变量声明提升，即（声明、初始化、赋值提升）
+    </pre>
+</body>
+</html>
+<script>
+console.log(fn);
+console.log(a);
+console.log(fn2);
+    
+function fn() {}
+
+let a;
+let fn2 = () => {}
+
+</script>
