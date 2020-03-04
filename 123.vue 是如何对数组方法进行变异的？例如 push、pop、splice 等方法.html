@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 是如何对数组方法进行变异的？例如 push、pop、splice 等方法</title>
+</head>
+<body>
+    <pre>
+        vue 是如何对数组方法进行变异的？例如 push、pop、splice 等方法
+
+        通过在数组的原型上，对那些方法[pop, push, unshift, shift, splice, sort, reverse]重新定义
+        
+        判断是否新增参数，如果新增元素，则对其进行响应式
+        最后触发视图的更新
+
+        Object.defineProperty
+            可以对数组现有元素进行监听，但是需要对数组的每一层每一位进行监听。
+            而通过设置数组的length或者通过下标去修改数组时，无法检测到
+            所以vue2.0没有实现
+
+    </pre>
+</body>
+</html>
+<script>
+    function observe(obj, key, val) {
+        Object.defineProperty(obj, key, {
+            get: function() {
+                console.log('trigger getter');
+                return val
+            },
+            set: function(newVal) {
+                console.log('trigger setter');
+                val = newVal
+            }
+        })
+    }
+
+    var arr = [1,2,3,4]
+    arr.forEach(function(i, idx) {
+        observe(arr, idx, i)
+    })
+    console.log(arr[0])
+    arr[0] = 2
+    console.log(arr[0])
+
+    // arr.pop()
+    // arr.push(9)
+    // arr.shift()
+    // arr.unshift(0)
+
+    arr[6] = 10
+</script>
