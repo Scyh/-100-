@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>扑克牌问题</title>
+</head>
+<body>
+    <pre>
+        扑克牌问题
+
+
+        有一堆扑克牌，将牌堆第一张放到桌子上，再将接下来的牌堆的第一张放到牌底，如此往复；
+
+        最后桌子上的牌顺序为： (牌底) 1,2,3,4,5,6,7,8,9,10,11,12,13 (牌顶)；
+
+        问：原来那堆牌的顺序，用函数实现。
+    </pre>
+</body>
+</html>
+<script>
+
+    let arr = [1,2,3,4,5,6,7,8,9,10,11,12,13]
+
+    function revert(arr) {
+        let result = []
+        while(arr.length > 1) {
+            result.push(arr.pop())
+            result.push(result.shift())
+        }
+        result.push(arr.pop())
+        return result
+    }
+
+
+    console.log(revert(arr));
+    
+
+    function fn(base) {
+        let result = []
+        while(base.length > 1) {
+            result.unshift(base.pop())
+            base.unshift(base.pop())
+        }
+        result.unshift(base.pop())
+        return result.reverse()
+    }
+    console.log(fn([7, 10, 6, 13, 5, 9, 4, 11, 3, 8, 2, 12, 1]));
+    
+</script>

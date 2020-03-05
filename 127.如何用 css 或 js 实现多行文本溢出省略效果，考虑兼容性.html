@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>如何用 css 或 js 实现多行文本溢出省略效果，考虑兼容性</title>
+</head>
+<style>
+    div {
+        margin: 20px;
+        width: 200px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        font-size: 14px;
+    }
+    .single-line {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .multip-line,
+    .js-multip-line,
+    .js-multip-line2 {
+        height: 40px;
+        overflow: hidden;
+        position: relative;
+        word-break: break-all;
+    }
+    .multip-line::after {
+        content: '...';
+        font-size: inherit;
+        position: absolute;
+        padding-left: 30px;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(to right, transparent, #fff 55%)
+    }
+
+    .float-multip-line-wrap {
+        height: 40px;
+        overflow: hidden;
+
+    }
+    .float-multip-line-wrap > p {
+        float: right;
+        margin: 0 0 0 -5px;
+        width: 100%;
+        line-height: 20px;
+        word-break: break-all;
+    }
+    .float-multip-line-wrap::before {
+        content: '';
+        float: left;
+        width: 5px;
+        height: 40px;
+        line-height: 20px;
+    }
+    .float-multip-line-wrap::after {
+        content: '...';
+        float: right;
+        margin-left: -1em;
+        width: 1em;
+        height: 40px;
+        position: relative;
+        left: 100%;
+        top: 20px;
+        background: linear-gradient(to right, transparent, #fff 50%);
+    }
+</style>
+<body>
+    <div class="single-line">这是一段很长很长很123123543fgnghdfgadgsdf45345长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的文字</div>
+
+    <div class="multip-line">这是一段很长很长很123123543fgnghdfgadgsdf45345长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的文字</div>
+
+    <div class="float-multip-line-wrap">
+        <p>这是一段很长很长很123123543fgnghdfgadgsdf45345长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的文字</p>
+    </div>
+
+
+    <div class="js-multip-line">这是一段很长很长很123123543fgnghdfgadgsdf45345长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的文字</div>
+
+    <div class="js-multip-line2">这是一段很长很长很123123543fgnghdfgadgsdf45345长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长很长的文字</div>
+
+</body>
+</html>
+<script>
+    function multipLine(dom) {
+        dom.style.position = 'position'
+        
+        let span = document.createElement('span')
+        span.innerText = '...'
+        span.style.position = 'absolute'
+        span.style.right = '0'
+        span.style.bottom = '0'
+        span.style.paddingLeft = '30px'
+        span.style.background = 'linear-gradient(to right, transparent, #fff 55%)'
+        dom.appendChild(span)
+    }
+    multipLine(document.querySelector('.js-multip-line'))
+
+    function multipLine2(dom, line = 2) {
+        const domW = parseInt(window.getComputedStyle(dom).width)
+        const domText = dom.innerText
+        const domTextLength = domText.length
+        const fontSize = parseInt(window.getComputedStyle(dom).fontSize)
+
+        const strNum = Math.floor(domW / fontSize) * line
+        console.log(domW, fontSize, strNum)
+        if (domTextLength > strNum) {
+            let content = domText.slice(0, strNum - domTextLength).concat('...')
+            dom.innerText = content
+        }
+
+    }
+    multipLine2(document.querySelector('.js-multip-line2'))
+</script>
