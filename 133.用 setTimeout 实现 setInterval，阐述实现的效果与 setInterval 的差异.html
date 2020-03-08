@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用 setTimeout 实现 setInterval，阐述实现的效果与 setInterval 的差异</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    console.log('用 setTimeout 实现 setInterval，阐述实现的效果与 setInterval 的差异')
+
+    function _setInterval(callback, time) {
+        setTimeout(function() {
+            callback()
+            _setInterval(callback, time)
+        }, time)
+    }
+
+
+    _setInterval(function() {
+        console.log(111)
+    }, 1500)
+</script>
