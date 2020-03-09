@@ -13,14 +13,34 @@
     console.log('用 setTimeout 实现 setInterval，阐述实现的效果与 setInterval 的差异')
 
     function _setInterval(callback, time) {
-        setTimeout(function() {
-            callback()
-            _setInterval(callback, time)
-        }, time)
+        var handle = null
+        
+        fn(callback, time)
+        function fn(callback, time) {
+            handle = setTimeout(function() {
+                callback.call(this)
+                fn(callback, time)
+            }, time)
+        }
+        
+        function clear() {
+            console.log(handle);
+            
+            clearTimeout(handle)
+        }
+
+        return {
+            clear
+        }
     }
 
 
-    _setInterval(function() {
+    var timer = _setInterval(function() {
         console.log(111)
     }, 1500)
+    console.log(timer)
+
+    setTimeout(() => {
+        timer.clear()
+    }, 3000)
 </script>
