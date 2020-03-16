@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>输出以下代码执行结果，大致时间就好（不同于上题）</title>
+</head>
+<body>
+    <pre>
+        function wait() {
+            return new Promise(resolve =>
+              setTimeout(resolve, 10 * 1000)
+            )
+          }
+          
+          async function main() {
+            console.time();
+            await wait();
+            await wait();
+            await wait();
+            console.timeEnd();
+          }
+          main();
+
+          30 * 1000
+    </pre>
+</body>
+</html>

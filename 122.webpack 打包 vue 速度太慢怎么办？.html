@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>webpack 打包 vue 速度太慢怎么办？</title>
+</head>
+<body>
+    <pre>
+        webpack 打包 vue 速度太慢怎么办？
+
+        使用webpack-bundle-analyzer分析 
+
+        1.webpack的external，不打包一些第三方插件，再配合html-webpack-tags-plug插件，维护插件的cdn链接
+        2.loader处理文件时，尽量缩小范围
+        3.webpack-parallel-uglify-plugin提升构建性能
+        4.cache-loader缓存持久化
+    </pre>
+</body>
+</html>

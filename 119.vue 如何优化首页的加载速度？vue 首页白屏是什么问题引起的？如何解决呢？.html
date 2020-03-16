@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue 如何优化首页的加载速度？vue 首页白屏是什么问题引起的？如何解决呢？</title>
+</head>
+<body>
+    <pre>
+        vue 如何优化首页的加载速度？vue 首页白屏是什么问题引起的？如何解决呢？
+
+        原因：
+            单页面应用的首屏会加载比较大的js，例如app.js,rendor.js，会比较耗时，阻塞页面的解析，造成白屏
+
+        解决：
+            1.服务端渲染，服务端提前生成html，直接传输到客户端
+            2.wekpack打包时，分割代码，配合路由懒加载，减小首屏需要加载的js文件体积大小
+            3.使用骨架屏来优化用户体验
+            4.第三方插件可以使用一些cdn
+            5.开启gzip压缩
+    </pre>
+</body>
+</html>

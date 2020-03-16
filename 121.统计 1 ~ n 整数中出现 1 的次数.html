@@ -10,5 +10,45 @@
 </body>
 </html>
 <script>
-    console.log('%c统计 1 ~ n 整数中出现 1 的次数。 %c例如统计 1 ~ 400W 出现 1 的次数。', 'color: red','color: 666')
+    console.log('%c统计 1 ~ n 整数中出现 1 的次数', 'color: #666')
+
+
+    function countOne(n) {
+        var factor = 1;
+        let count = 0;
+        let next = parseInt(n / factor);
+        while (next !== 0) {
+
+            // 低位数
+            var lower = n - next * factor
+            
+            // 当前位数
+            var curr = next % 10;
+
+            // 高位数
+            var high = parseInt(n / (10 * factor));
+
+            console.log(next, curr, high, lower);
+
+            if (curr === 0) {
+                
+                // 当前位数 小于 寻找数
+                count += high * factor;
+            } else if (curr === 1) {
+
+                // 当前位数 等于 寻找数
+                count += high * factor + lower + 1
+            } else {
+
+                // 大于寻找数
+                count += (high + 1) * factor
+            }
+
+            factor *= 10;
+            next = parseInt(n / factor);
+        }
+        return count;
+    }
+
+    countOne(567)
 </script>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用 setTimeout 实现 setInterval，阐述实现的效果与 setInterval 的差异</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script>
+    console.log('用 setTimeout 实现 setInterval，阐述实现的效果与 setInterval 的差异')
+
+    function _setInterval(callback, time) {
+        var handle = null
+        
+        fn(callback, time)
+        function fn(callback, time) {
+            handle = setTimeout(function() {
+                callback.call(this)
+                fn(callback, time)
+            }, time)
+        }
+        
+        function clear() {
+            console.log(handle);
+            
+            clearTimeout(handle)
+        }
+
+        return {
+            clear
+        }
+    }
+
+
+    var timer = _setInterval(function() {
+        console.log(111)
+    }, 1500)
+    console.log(timer)
+
+    setTimeout(() => {
+        timer.clear()
+    }, 3000)
+</script>

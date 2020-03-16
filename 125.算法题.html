@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>算法题</title>
+</head>
+<body>
+    <pre>
+        如何将[{id: 1}, {id: 2, pId: 1}, ...] 的重复数组（有重复数据）转成树形结构的数组 [{id: 1, child: [{id: 2, pId: 1}]}, ...] （需要去重）
+    </pre>
+</body>
+</html>
+<script>
+    let arr = [{id: 1}, {id: 2, pId: 1}, {id: 3, pId: 2}, {id: 4, pId: 1}, {id: 5, pId: 1}, {id: 6}, {id: 7, pId: 3}]
+
+    let arr2 = [{id: 1}, {id:2, pId: 1}, {id: 3, pId: 2}, {id: 4}, {id:3, pId: 2}, {id: 5, pId: 4}]
+
+    function transform(arr) {
+        let map = {},
+            idMap = new Set(),
+            result = []
+
+        arr.forEach(i => {
+            const id = i.id,
+                pId = i.pId
+            
+            if (!idMap.has(id)) {
+                idMap.add(id)
+                map[id] = i
+            }
+
+            if (pId && map[pId]) {
+                !map[pId].child && (map[pId].child = [])
+                map[pId].child.push(i)
+            } else {
+                result.push(i)
+            }
+        })
+        return result
+    }
+
+    console.log(transform(arr));
+    console.log(transform(arr2));
+    
+</script>
