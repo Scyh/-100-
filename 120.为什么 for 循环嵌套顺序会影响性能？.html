@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>为什么 for 循环嵌套顺序会影响性能？</title>
+</head>
+<body>
+    <pre>
+        为什么 for 循环嵌套顺序会影响性能？
+
+        var t1 = new Date().getTime()
+        for (let i = 0; i < 100; i++) {
+            for (let j = 0; j < 1000; j++) {
+                for (let k = 0; k < 10000; k++) {
+                }
+            }
+        }
+
+        var t2 = new Date().getTime()
+        console.log('first time', t2 - t1)
+
+        for (let i = 0; i < 10000; i++) {
+            for (let j = 0; j < 1000; j++) {
+                for (let k = 0; k < 100; k++) {
+
+                }
+            }
+        }
+        var t3 = new Date().getTime()
+        console.log('two time', t3 - t2)
+
+        1.
+            第一层循环 i * 100
+                第二层循环 j * 100 * 1000
+                    第三层循环 k * 100 * 1000 * 10000
+
+        2.  第一层循环 i * 10000
+                第二层循环 j * 10000 * 1000
+                    第三层循环 k * 10000 * 1000 * 100
+    </pre>
+</body>
+</html>
